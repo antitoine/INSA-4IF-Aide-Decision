@@ -1,3 +1,5 @@
+# Construit le PDF du rapport LaTex
+
 PDF_VIEWER=evince
 LATEX_BUILDER=pdflatex
 BUILD_FLAGS=-interaction nonstopmode
