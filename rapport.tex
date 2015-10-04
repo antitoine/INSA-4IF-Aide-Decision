@@ -1,4 +1,3 @@
-
 %%% Preamble
 \documentclass[paper=a4, fontsize=11pt]{scrartcl}
 \usepackage[utf8]{inputenc}
@@ -9,6 +8,7 @@
 \usepackage{amsmath,amsfonts,amsthm} % Math packages
 \usepackage[pdftex]{graphicx}	
 \usepackage{url}
+\usepackage{pdfpages}
 
 
 %%% Custom sectioning
@@ -39,32 +39,19 @@
 \renewcommand{\bf}[1]{\textbf{#1}}
 \renewcommand{\it}[1]{\textit{#1}}
 
-\title{
-		%\vspace{-1in} 	
-		\usefont{OT1}{bch}{b}{n}
-		\normalfont \normalsize \textsc{INSA Lyon} \\ [25pt]
-		\horrule{0.5pt} \\[0.4cm]
-		\huge Rapport d'étude d'optimisation de production \\
-		\horrule{2pt} \\[0.5cm]
-}
-\author{
-		\normalfont 								\normalsize
-        Estelle Lepeigneux\\[-3pt]		\normalsize
-		Lisa Courant\\[-3pt]		\normalsize
-		Hugues Verlin\\[-3pt]		\normalsize
-		Antoine Chabert\\[-3pt]		\normalsize
-		Pierre Jarsaillon\\[-3pt]		\normalsize
-		Paul Dautry\\[-3pt]		\normalsize
-        \today
-}
-\date{}
-
-
 %%% Begin document
 \begin{document}
-\maketitle
+\includepdf[pages={1}]{title.pdf}
+
+\tableofcontents
+
 \section{Etude des problèmes soumis par les responsables}
 Cette section traite de la résolution des problèmes soumis par les différents acteurs de l'entreprise. Chaque sous-section aborde un problème et tente de proposer une solution optimale plausible pour ce dernier.
+
+\subsection*{Notations}
+
+Dans le document suivant, nous allons utiliser : 
+$A$, $B$, $C$, $D$, $E$ et $F$ pour désigner les différents produits $P_i$. Les quantités respectives $q_i$ seront désignées par $q_a$, $q_b$, $q_c$, $q_d$, $q_e$ et $q_f$.
 
 \subsection{Comptable}
 \bf{Problème soumis :}
@@ -86,9 +73,38 @@ On remarque que le produit E est le plus rentable, puis le produit F, puis C, pu
 \subsection{Responsable d'atelier}
 \bf{Problème soumis :}
 
-Le problème soumis par le responsable de l'atelier est le suivant, ce dernier souhaite maximiser la quantité totale de produits fabriqués.\\
+Le problème soumis par le responsable de l'atelier est le suivant, ce dernier souhaite maximiser la quantité totale de produits fabriqués. De ce fait, la fonction à maximiser ne devra pas favoriser un type de produit par rapport à un autre.\\
 
 \bf{Solution proposée :}
+
+On cherche de ce fait à maximiser l'équation (en tenant des comptes des contraintes):
+
+\[f(Q) = \sum_i q_i \quad \text{  avec } \, Q, \, \text{ vecteur des quantités } \, q_i \]
+
+\bf{Résultat :}
+
+Le résultat de l'étude est le suivant : 
+
+\begin{center}
+\begin{tabular}{cccccc}
+\hline 
+$q_a$ & $q_b$ & $q_c$ & $q_d$ & $q_e$ & $q_f$ \\ 
+\hline 
+5 & 34,64 & 38,85 & 0 & 181,71 & 98,43 \\ 
+\hline 
+\end{tabular} 
+\end{center}
+
+On constate donc qu'il ne faut pas fabriquer de produits D si l'on souhaite maximiser le nombre de produits à fabriquer. Ceci n'est cependant pas une solution qui sera compatible avec les autres responsables. En effet, il y a un déséquilibre important entre la production de produit $A$ et $E$, ce qui ne conviendra pas au responsable commercial.
+
+Cette étude permet de trouver la quantité maximale de produit qui peut être produite par l'entreprise.
+\[ Q_{max} = 378,6 \text{ produits}\]
+
+Cette limite supérieure présente l'intérêt de proposer intervale de recherche pour d'autres études.
+
+
+
+
 
 \subsection{Responsable des stocks}
 \bf{Problème soumis :}
