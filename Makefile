@@ -4,7 +4,10 @@ PDF_VIEWER=evince
 LATEX_BUILDER=pdflatex
 BUILD_FLAGS=-interaction nonstopmode
 
-all: build show
+all: buildTitle build show
+
+buildTitle : title.tex
+	$(LATEX_BUILDER) $(BUILD_FLAGS) $<
 
 build: rapport.tex
 	$(LATEX_BUILDER) $(BUILD_FLAGS) $<
