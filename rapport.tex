@@ -9,6 +9,7 @@
 \usepackage[pdftex]{graphicx}	
 \usepackage{url}
 \usepackage{pdfpages}
+\usepackage{todonotes}
 
 
 %%% Custom sectioning
@@ -39,11 +40,16 @@
 \renewcommand{\bf}[1]{\textbf{#1}}
 \renewcommand{\it}[1]{\textit{#1}}
 
+\newcommand{\Todo}[1]{\todo[inline]{#1}}
+
+
 %%% Begin document
 \begin{document}
 \includepdf[pages={1}]{title.pdf}
 
 \tableofcontents
+\listoftodos
+
 \newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -123,7 +129,45 @@ Cette limite supérieure présente l'intérêt de proposer intervale de recherch
 
 Le responsable des stocks souhaite quant à lui minimiser la quantité de matière stockée (qu'elle soit brute ou transformée).\\
 
+Ainsi on doit donc minimiser la quantité de produits stockés (c'est-à-dire à minimiser $q_a + q_b + q_c + q_d + q_e + q_f$, ainsi que les matières premières stockées (soit $4q_a + 4q_b + 5q_c + 9q_d + 4q_e + 3q_f$).
+\\
+
 \bf{Solution proposée :}
+
+On souhaite donc minimiser la fonction suivante : 
+
+\[ f(Q) = 5q_a + 5q_b + 6q_c + 10q_d + 5q_e + 4q_f \]
+
+Cependant, sans contrainte supplémentaire, on se place dans le cas irréaliste où l'on pourrait diminuer d'autant que l'on souhaite le nombre de produits fabriqués par l'entreprise.\\
+Il faut donc ajouter une contrainte, qui peut être une contrainte sur un nombre minimal de produits à fabriquer, ou bien sur le bénéfice souhaité par exemple.\\
+Pour l'étude, il a été fixé un nombre minimal de produit à fabriquer. Nous avons fait varier ce nombre pour voir s'il n'y a pas un "sweet spot".
+
+\bf{Résultat :}
+
+Le résultat de l'étude est le suivant : 
+
+\begin{figure}[hbtp]
+\caption{Nombre de produits en fonction du stock total \label{figstock}}
+\centering
+\includegraphics[width=16cm]{figures/nbProduitsFctStockTotal.png}
+\end{figure}
+
+Etant donné que la figure \ref{figstock} ne montre pas d'endroit où il y aurait un stock idéal en fonction du nombre de produits, nous pouvons choisir arbitrairement, bien qu'en tenant compte des résultats précédents, d'une production de 300 produits. 
+
+La répartition serait alors : 
+
+\Todo{utiliser Matlab pour avoir une répartition du stock pour 300 produits en fabrication par semaine}
+\begin{center}
+\begin{tabular}{cccccc}
+\hline 
+$q_A$ & $q_B$ & $q_C$ & $q_D$ & $q_E$ & $q_F$ \\ 
+\hline 
+5 & 34,64 & 38,85 & 0 & 181,71 & 98,43 \\ 
+\hline 
+\end{tabular} 
+\end{center}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% RESP COMMERCIAL %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Responsable commercial}
