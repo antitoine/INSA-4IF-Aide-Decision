@@ -13,8 +13,8 @@
 
 %%% Custom sectioning
 \usepackage{sectsty}
-\allsectionsfont{\centering \normalfont\scshape}
-
+\allsectionsfont{  \normalfont\scshape}
+%\allsectionsfont{\centering \normalfont\scshape}
 
 %%% Custom headers/footers (fancyhdr package)
 \usepackage{fancyhdr}
@@ -44,31 +44,45 @@
 \includepdf[pages={1}]{title.pdf}
 
 \tableofcontents
+\newpage
 
-\section{Etude des problèmes soumis par les responsables}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\'Etude des problèmes soumis par les responsables}
 Cette section traite de la résolution des problèmes soumis par les différents acteurs de l'entreprise. Chaque sous-section aborde un problème et tente de proposer une solution optimale plausible pour ce dernier.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% NOTATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Notations}
 
 Dans le document suivant, nous allons utiliser : 
-$A$, $B$, $C$, $D$, $E$ et $F$ pour désigner les différents produits $P_i$. Les quantités respectives $q_i$ seront désignées par $q_a$, $q_b$, $q_c$, $q_d$, $q_e$ et $q_f$.
+$A$, $B$, $C$, $D$, $E$ et $F$ pour désigner les différents produits $P_i$. Les quantités respectives $q_i$ seront désignées par $q_A$, $q_B$, $q_C$, $q_D$, $q_E$ et $q_F$. Le prix de vente du produit $P_i$ sera noté $p_i$. Le coût de production du produit $P_i$ sera noté $c_i$, le coût de production comprends le coût des matières premières et le coût de fabrication dû aux machines.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% COMPTABLE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Comptable}
 \bf{Problème soumis :}
 Le problème soumis par le comptable est le suivant, celui-ci souhaite maximiser les bénéfices de l'entreprise.\\
 
 \bf{Solution proposée :}
 
-On a, d’après le calcul du bénéfice, pour chaque produit la rentabilité suivante :
-\begin{verbatim}
-A = 5.8333
-B = 11.6167
-C = 12.1667
-D = 1.3000
-E = 31.6500
-F = 27.4833
-\end{verbatim}
-On remarque que le produit E est le plus rentable, puis le produit F, puis C, puis B, puis A et enfin D. De ce fait, il faut favoriser la production des produits en suivant cet ordre. Ce qui explique que le produit E est celui qui doit être le plus produit et le produit D est celui qui soit être le moins produit.
+On a cherché à maximiser le bénéfice que l'on a exprimé, 
+
+\[f(Q) = (\sum_i q_i \times p_i ) - (\sum_i q_i \times c_i) \quad \text{  avec } \, Q, \, \text{ vecteur des quantités } \, q_i \]
+
+ce qui nous donne pour chaque produit la quantité hebdomadaire à produire :
+\begin{center}
+\begin{tabular}{cccccc}
+\hline
+$q_A$ & $q_B$ & $q_C$ & $q_D$ & $q_E$ & $q_F$ \\
+\hline
+5,83 & 11,61 & 12,16 & 1,3 & 31,65 & 27,48 \\
+\hline
+\end{tabular}
+\end{center}
+
+On remarque que le produit E est le plus rentable, puis le produit F, puis C, puis B, puis A et enfin D. De ce fait, il faut favoriser la production des produits en suivant cet ordre. Ce qui explique que le produit E est celui qui doit être le plus produit et le produit D est celui qui doit être le moins produit.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% RESP ATELIER %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Responsable d'atelier}
 \bf{Problème soumis :}
@@ -88,7 +102,7 @@ Le résultat de l'étude est le suivant :
 \begin{center}
 \begin{tabular}{cccccc}
 \hline 
-$q_a$ & $q_b$ & $q_c$ & $q_d$ & $q_e$ & $q_f$ \\ 
+$q_A$ & $q_B$ & $q_C$ & $q_D$ & $q_E$ & $q_F$ \\ 
 \hline 
 5 & 34,64 & 38,85 & 0 & 181,71 & 98,43 \\ 
 \hline 
@@ -103,9 +117,7 @@ Cette étude permet de trouver la quantité maximale de produit qui peut être p
 Cette limite supérieure présente l'intérêt de proposer intervale de recherche pour d'autres études.
 
 
-
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% RESP DES STOCK %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Responsable des stocks}
 \bf{Problème soumis :}
 
@@ -113,6 +125,7 @@ Le responsable des stocks souhaite quant à lui minimiser la quantité de matiè
 
 \bf{Solution proposée :}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% RESP COMMERCIAL %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Responsable commercial}
 \bf{Problème soumis :}
 
@@ -121,18 +134,20 @@ Le responsable commercial souhaite pour sa part équilibrer la quantité de prod
 \bf{Solution proposée :}
 
 Suite à notre étude du problème, c'est à dire la maximisation des bénéfices en équilibrant la production des produits A et E, plusieurs constats peuvent être faits :\\
-Pour un écart nul entre les quantités de A et E produites on a les indicateurs suivants :
-\begin{verbatim}
-A = 119.0823
-B = 6.9198
-C = 42.5844
-D = 0.0000
-E = 119.0823
-F = 87.2468
-\end{verbatim}
+Pour un écart nul entre les quantités de A et E produites on a les quantités hebdomadaires suivantes suivants :
+\begin{center}
+\begin{tabular}{cccccc}
+\hline
+$q_A$ & $q_B$ & $q_C$ & $q_D$ & $q_E$ & $q_F$ \\
+\hline
+119.08 & 6.91 & 42.58 & 0.00 & 119.08 & 87.24 \\
+\hline
+\end{tabular}
+\end{center}
 Tout d'abord le produit D ne semble pas rentable car l'étude conclue qu'il serait optimal de ne plus le produire du tout.
 On remarque également que l’évolution de e tend à favoriser la production du produit E plutôt que le produit A.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% RESP DU PERSONNEL %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Responsable du personnel}
 \bf{Problème soumis :}
 
@@ -140,7 +155,10 @@ Le responsable du personnel souhaite minimiser le temps d'utilisation de la mach
 
 \bf{Solution proposée :}
 
-\section{Etude du problème soumis par le Responsable de l'entreprise}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% RESP DES STOCK %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\'Etude du problème soumis par le Responsable de l'entreprise}
 
 %%% End document
 \end{document}
