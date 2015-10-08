@@ -9,7 +9,7 @@ A = [1 2 1 5 0 2;
 	5 0 8 7 10 25;
 	5 5 3 12 8 6;
 	5 3 5 8 0 7;
-    -1 -1 -1 -1 -1 -1]; % On rajoute une contrainte sur le stock min (e dans le vecteur b)
+    -1 -1 -1 -1 -1 -1]; % On rajoute une contrainte sur le nombre de produits a produire (e dans le vecteur b)
 
 e = -500;
 
@@ -89,6 +89,4 @@ plot(StockBen, CoefBen, '*')
 xlabel('Stock total')
 ylabel('Benefice realise par unite de stock')
 title('Evolution du benefice realise par unite de stock, en fonction du stock total');
-
-
 

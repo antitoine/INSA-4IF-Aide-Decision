@@ -11,6 +11,7 @@
 \usepackage{pdfpages}
 \usepackage{todonotes}
 \usepackage[a4paper, body={17cm,24cm}]{geometry}
+\usepackage{float}
 
 
 %%% Custom sectioning
@@ -159,30 +160,39 @@ Pour l'étude, il a été fixé un nombre minimal de produit à fabriquer. Nous 
 
 Le résultat de l'étude est le suivant : 
 
-\begin{figure}[hbtp]
+\begin{figure}[H]
 \caption{Nombre de produits en fonction du stock total \label{figstock}}
 \centering
 \includegraphics[width=16cm]{figures/nbProduitsFctStockTotal.png}
 \end{figure}
 
-\begin{figure}[hbtp]
+\begin{figure}[H]
 \caption{Variation du coefficient de la courbe de la figure \ref{figstock}}
 \centering
 \includegraphics[width=16cm]{figures/nbProduitsFctStockTotal_Coeff.png}
 \end{figure}
 
+\begin{figure}[H]
+\caption{Bénéfice réalisé en fonction du stock total \label{figben}}
+\centering
+\includegraphics[width=16cm]{figures/BenefFctStockTotal.png}
+\end{figure}
 
-Etant donné que la figure \ref{figstock} ne montre pas d'endroit où il y aurait un stock idéal en fonction du nombre de produits, nous pouvons choisir arbitrairement, bien qu'en tenant compte des résultats précédents, d'une production de 300 produits. 
+\begin{figure}[H]
+\caption{Variation du coefficient de la courbe de la figure \ref{figben}}
+\centering
+\includegraphics[width=16cm]{figures/BenefFctStockTotal_Coeff.png}
+\end{figure}
 
-La répartition serait alors : 
 
-\Todo{utiliser Matlab pour avoir une répartition du stock pour 300 produits en fabrication par semaine}
+Les figures montre que pour une production réaliste de produits fabriqués ($> 200$), on peut voir que la rentabilité par produit chute à partir de 1003 unités de stocks, soit une production de 243 produits dont Matlab nous donne la répartition.
+
 \begin{center}
 \begin{tabular}{cccccc}
 \hline 
 $q_A$ & $q_B$ & $q_C$ & $q_D$ & $q_E$ & $q_F$ \\ 
 \hline 
-5 & 34,64 & 38,85 & 0 & 181,71 & 98,43 \\ 
+5 & 5 & 0 & 0 & 56,5 & 167,5 \\ 
 \hline 
 \end{tabular} 
 \end{center}
@@ -215,9 +225,35 @@ On remarque également que l’évolution de e tend à favoriser la production d
 \subsection{Responsable du personnel}
 \bf{Problème soumis :}
 
-Le responsable du personnel souhaite minimiser le temps d'utilisation de la machine 4.\\
+Le responsable du personnel souhaite utiliser le moins possible la machine 4.\\
 
 \bf{Solution proposée :}
+
+La première solution qui nous vient à l’esprit serait de minimiser la fonction suivante :\[f(Q) = 2q_a + 10q_b + 5q_c + 4q_d + 13q_e + 7q_f\]
+
+Cependant, les résultats que l’on obtient en ne prenant en compte que cette équation ne sont pas satisfaisant, car on se retrouverait à ne produire que 5 unités de A et B et 0 des autres. Ce résultat est mathématiquement juste au vu des contraintes que nous avions précisé, mais ne suffit pas pour garder une rentabilité à l’entreprise. Pour trouver une solution plus juste, nous allons prendre en compte une certaine quantité d’unités minimales à produire. \\
+
+Nous reprenons donc les résultats obtenus par le responsable d’atelier, et en faisant varier les différentes quantités de produits fabriqués selon sa méthode de calcul, nous avons établi un graphique permettant d’évaluer le temps d’utilisation de la machine 4.\\
+
+\begin{figure}[H]
+\caption{Temps d'utilisation de la machine 4 en fonction du nombre de produits fabriqués}
+\centering
+\includegraphics[width=16cm]{figures/graphe-personnel.png}
+\end{figure}
+
+On constate très clairement que la pente de la courbe augmente fortement à partir de 345 unités fabriquée, ce qui correspond à 940 min de travail pour la machine 4. Au delà de ce seuil, on utilise beaucoup plus la machine 4.\\
+
+345 étant la limite à jusqu'à laquelle on peut produire le plus d’unités en utilisant le moins la machine 4, on choisira donc arbitrairement un minimum de 345 unités à fabriquer.
+
+\begin{center}
+\begin{tabular}{cccccc}
+\hline
+$q_A$ & $q_B$ & $q_C$ & $q_D$ & $q_E$ & $q_F$ \\
+\hline
+270.00 & 5.00 & 70.00 & 0.00 & 0.00 & 0.00 \\
+\hline
+\end{tabular}
+\end{center}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% RESP DES STOCK %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
