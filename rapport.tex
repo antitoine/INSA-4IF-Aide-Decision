@@ -10,6 +10,7 @@
 \usepackage{url}
 \usepackage{pdfpages}
 \usepackage{todonotes}
+\usepackage[a4paper, body={17cm,24cm}]{geometry}
 
 
 %%% Custom sectioning
@@ -41,6 +42,18 @@
 \renewcommand{\it}[1]{\textit{#1}}
 
 \newcommand{\Todo}[1]{\todo[inline]{#1}}
+
+\usepackage{color}
+\usepackage{xcolor}
+
+\usepackage{caption}
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{\colorbox{gray}{\parbox{\textwidth}{#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
+
+\usepackage[numbered]{mcode}
+
+\lstset{breaklines=true,columns=fullflexible}
 
 
 %%% Begin document
@@ -210,6 +223,18 @@ Le responsable du personnel souhaite minimiser le temps d'utilisation de la mach
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% RESP DES STOCK %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\'Etude du problème soumis par le Responsable de l'entreprise}
+
+\newpage
+
+\section{Listing - Scripts Matlab}
+
+\lstlistoflistings
+
+\lstinputlisting[caption=Comptable]{scripts/Comptable.m}
+\lstinputlisting[caption=Responsable Atelier]{scripts/ResponsableAtelier.m}
+\lstinputlisting[caption=Responsable Commercial]{scripts/ResponsableCommercial.m}
+\lstinputlisting[caption=Responsable Stocks]{scripts/ResponsableStock.m}
+\lstinputlisting[caption=Responsable Personel]{scripts/ResponsablePersonnel.m}
 
 %%% End document
 \end{document}
