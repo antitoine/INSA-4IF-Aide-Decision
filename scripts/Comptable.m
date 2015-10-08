@@ -15,8 +15,3 @@ ChargesTempsMachine7 =[5 3 5 8 0 7] * (1/60)
 Benefices = CA - (ChargesMatiere + ChargesTempsMachine1 + ChargesTempsMachine2 + ChargesTempsMachine3 + ChargesTempsMachine4 + ChargesTempsMachine5 + ChargesTempsMachine6 + ChargesTempsMachine7)
 
 linprog(-Benefices, A, b, [], [], lb, [])
-
-% Pour Matlab 2014, permet de calculer avec des valeurs entieres:
-% intcon = 1:6;
-
-% intlinprog(-CA, intcon, A, b, [], [], lb, [])
