@@ -1,16 +1,21 @@
 # Construit le PDF du rapport LaTex
 
-PDF_VIEWER=evince
 LATEX_BUILDER=pdflatex
 BUILD_FLAGS=-interaction nonstopmode
 
 all: buildTitle build show
 
 buildTitle : title.tex
-	$(LATEX_BUILDER) $(BUILD_FLAGS) $<
+	$(LATEX_BUILDER) $(BUILD_FLAGS) $< > /dev/null
+	$(LATEX_BUILDER) $(BUILD_FLAGS) $< > /dev/null
 
 build: rapport.tex
-	$(LATEX_BUILDER) $(BUILD_FLAGS) $<
+	$(LATEX_BUILDER) $(BUILD_FLAGS) $< > /dev/null
+	$(LATEX_BUILDER) $(BUILD_FLAGS) $< > /dev/null
 
 show: rapport.pdf
-	$(PDF_VIEWER) $< &> /dev/null &
+	if test "${DESKTOP_SESSION}" = "kde-plasma"; then \
+		okular $< &> /dev/null & \
+	else \
+		evince $< &> /dev/null & \
+	fi
