@@ -1,5 +1,5 @@
 %%% Preamble
-\documentclass[paper=a4, fontsize=11pt]{scrartcl}
+\documentclass[paper=a4, fontsize=11pt]{report}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{fourier}
@@ -44,7 +44,9 @@
 \renewcommand{\it}[1]{\textit{#1}}
 
 \newcommand{\Todo}[1]{\todo[inline]{#1}}
+\renewcommand{\thesection}{\thepart .\arabic{section}}
 
+\usepackage{cases}
 \usepackage{color}
 \usepackage{xcolor}
 
@@ -71,7 +73,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{\'Etude des problèmes soumis par les responsables}
+\part{\'Etude des problèmes soumis par les responsables}
+
+\section{Introduction}
 Cette section traite de la résolution des problèmes soumis par les différents acteurs de l'entreprise. Chaque sous-section aborde un problème et tente de proposer une solution optimale plausible pour ce dernier.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% NOTATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -84,12 +88,124 @@ Dans le document suivant, nous allons utiliser :
 $A$, $B$, $C$, $D$, $E$ et $F$ pour désigner les différents produits $P_i$. Les quantités respectives $q_i$ seront désignées par $q_A$, $q_B$, $q_C$, $q_D$, $q_E$ et $q_F$. Le prix de vente du produit $P_i$ sera noté $p_i$. Le coût de production du produit $P_i$ sera noté $c_i$, le coût de production comprends le coût des matières premières et le coût de fabrication dû aux machines.\\
 
 Le vecteur des quantités $(q_A$, $q_B$, $q_C$, $q_D$, $q_E$, $q_F)$ sera noté $Q$ dans la suite du rapport.
-
 \end{shaded}
+
+%%%%%%%%CONTRAINTES GENERALES%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Contraintes Générales}
+
+L'établissement des contraintes générales permet de modéliser le plus fidèlement possible les différents problèmes à étudier.
+
+\subsection{Contraintes sur la quantité}
+
+La quantité de chaque produit doit être supérieur à 0. Les produits $A$ et $B$ doivent être au moins fabriqués en 5 exemplaires par semaine.
+
+Ceci se traduit par les contraintes de domaines suivantes : 
+
+\begin{equation}
+q_A \geq 5, \quad q_B \geq 5, \quad q_C \geq 0, \quad q_D \geq 0, \quad q_E \geq 0, \quad q_F \geq 0 
+\label{ctr_quantite}
+\end{equation} 
+
+\subsection{Contraintes sur le stockage}
+Les conatraintes de stockage impose des quantités sur les matières premières. Sachant que l'on connait le nombre de matières premières nécessaires à la fabrication de chaque produit, on obtient les 3 contraintes suivantes :  
+
+\begin{equation}
+  \left\{
+    \begin{aligned}
+q_A + 2 q_B + q_C + 5q_D + 2q_F \quad & \leq & 350 \\
+2q_A + 2q_B + q_C + q_D + q_E \quad & \leq & 620 \\
+q_A + 3 q_C + 2q_D + 2q_E \quad & \leq & 485 
+    \end{aligned}
+  \right.
+\label{ctr_stockage}
+\end{equation}
+
+\subsection{Contraintes sur le temps de travail}
+
+L'entreprise travail en 2 huit, 5 jours sur 7. Ceci correspond à 80 heures  ou encore $4\:800$ min par semaine.
+
+Ceci permet d'établir les contraintes sur le temps des machines (7 machines au total) : 
+
+\begin{equation}
+  \left\{
+    \begin{aligned}
+8q_A + 15q_B + 0q_C  +  5q_D + 0q_E  + 10q_F \quad & \leq & 4800 & \quad \text{(machine 1)} \\
+7q_A + 12q_B + 2q_C  + 15q_D + 7q_E  + 12q_F \quad & \leq & 4800 & \quad \text{(machine 2)} \\
+8q_A +   q_B + 11q_C +  0q_D + 10q_E + 25q_F \quad & \leq & 4800 & \quad \text{(machine 3)} \\
+2q_A + 10q_B + 5q_C  +  4q_D + 13q_E + 7q_F  \quad & \leq & 4800 & \quad \text{(machine 4)} \\
+5q_A +  0q_B + 8q_C  +  7q_D + 10q_E + 25q_F \quad & \leq & 4800 & \quad \text{(machine 5)} \\
+5q_A +  5q_B + 3q_C  + 12q_D + 8q_E  + 6q_F  \quad & \leq & 4800 & \quad \text{(machine 6)} \\
+5q_A +  3q_B + 5q_C  + 8q_D  + 0q_E  + 7q_F  \quad & \leq & 4800 & \quad \text{(machine 7)} 
+    \end{aligned}
+  \right.
+\label{tps_travail}
+\end{equation}
+
+\subsection{Bilan des contraintes}
+
+Les différents responsables vont utiliser ces différentes contraintes dans le calcul de leurs objectifs.
+
+Il s'agira alors de miniser des fonctions correspondants à chacun des objectifs, tel que : 
+
+\begin{equation}
+  min(f^T(Q)) \quad \text{tel que :} \quad \\
+   \left\{
+    \begin{aligned}
+A.Q \quad & \leq & b \\
+lb \quad & \leq & x \\
+    \end{aligned}
+  \right.
+\end{equation}
+
+\[ \text{Avec : } \quad A = \begin{bmatrix}
+1 & 2 & 1 & 5 & 0 & 2 \\ 
+2 & 2 & 1 & 2 & 2 & 1 \\ 
+1 & 0 & 3 & 2 & 2 & 0 \\ 
+8 & 15 & 0 & 5 & 0 & 10 \\ 
+7 & 12 & 2 & 15 & 7 & 12 \\ 
+8 & 1 & 11 & 0 & 10 & 25 \\ 
+2 & 10 & 5 & 4 & 13 & 7 \\ 
+5 & 0 & 8 & 7 & 10 & 25 \\ 
+5 & 5 & 3 & 12 & 8 & 6 \\ 
+5 & 3 & 5 & 8 & 0 & 7 
+\end{bmatrix} \quad \quad
+b = \begin{bmatrix}
+350 \\ 
+620 \\ 
+485 \\ 
+4800 \\ 
+4800 \\ 
+4800 \\ 
+4800 \\ 
+4800 \\ 
+4800 \\ 
+4800
+\end{bmatrix} \quad \quad
+lb = \begin{bmatrix}
+5 \\
+5 \\
+0 \\
+0 \\
+0 \\
+0
+\end{bmatrix} 
+  \]
+
+Ainsi, pour reproduire les résultats obtenus dans ce rapport, il suffira d'utiliser la fonction \bf{linprog($f$, $A$, $b$, [], [], $lb$)} de \textit{Matlab} où $f$ est un vecteur, dont les composants sont les coefficients de la fonction à minimiser.
+
+\begin{shaded}
+\vspace{-0.5cm}
+
+\subsection*{Notes sur les contraintes}
+Dans la suite du rapport, l'ensemble des responsables utilisera les équations \eqref{ctr_quantite}, \eqref{ctr_stockage} et \eqref{tps_travail}. \\
+
+Des contraintes supplémentaires peuvent être également ajouté au cas par cas. Dans ce cas, elles seront explicitement précisées dans le texte.
+\end{shaded}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% COMPTABLE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Comptable}
+\section{Comptable}
 \bf{Problème soumis :}
-Le problème soumis par le comptable est le suivant, celui-ci souhaite maximiser les bénéfices de l'entreprise.\\
+Le problème soumis par le comptable est de maximiser les bénéfices de l'entreprise.\\
 
 \bf{Solution proposée :}
 
@@ -127,7 +243,7 @@ De ce fait, il faut favoriser la production des produits en suivant cet ordre et
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% RESP ATELIER %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Responsable d'atelier}
+\section{Responsable d'atelier}
 \bf{Problème soumis :}
 
 Le problème soumis par le responsable de l'atelier est le suivant, ce dernier souhaite maximiser la quantité totale de produits fabriqués. De ce fait, la fonction à maximiser ne devra pas favoriser un type de produit par rapport à un autre.\\
@@ -161,7 +277,7 @@ Cette limite supérieure présente l'intérêt de proposer intervale de recherch
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% RESP DES STOCK %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Responsable des stocks}
+\section{Responsable des stocks}
 \bf{Problème soumis :}
 
 Le responsable des stocks souhaite quant à lui minimiser la quantité de matière stockée (qu'elle soit brute ou transformée).\\
@@ -235,7 +351,7 @@ $q_A$ & $q_B$ & $q_C$ & $q_D$ & $q_E$ & $q_F$ \\
 Le deuxième choix a l'inconvénient d'être moins rentable niveau bénéfice/stockage mais présente l'avantage d'être mieux en accord avec le nombre de produits à produire vis-à-vis des autres responsables.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% RESP COMMERCIAL %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Responsable commercial}
+\section{Responsable commercial}
 \bf{Problème soumis :}
 
 Le responsable commercial souhaite pour sa part équilibrer la quantité de produite des produits A et E.\\
@@ -257,7 +373,7 @@ Tout d'abord le produit D ne semble pas rentable car l'étude conclue qu'il sera
 On remarque également que l’évolution de e tend à favoriser la production du produit E plutôt que le produit A.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% RESP DU PERSONNEL %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Responsable du personnel}
+\section{Responsable du personnel}
 \bf{Problème soumis :}
 
 Le responsable du personnel souhaite utiliser le moins possible la machine 4.\\
@@ -312,11 +428,9 @@ Responsable personnel & 270.00 & 5.00 & 70.00 & 0.00 & 0.00 & 0.00 & 345,00 & $9
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% RESP DES STOCK %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{\'Etude du problème soumis par le Responsable de l'entreprise}
+\part{\'Etude du problème soumis par le Responsable de l'entreprise}
 
 \newpage
-
-\section{Listing - Scripts Matlab}
 
 \lstlistoflistings
 
