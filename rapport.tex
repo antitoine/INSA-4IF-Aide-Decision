@@ -10,7 +10,7 @@
 \usepackage{url}
 \usepackage{pdfpages}
 \usepackage{todonotes}
-\usepackage[a4paper, body={17cm,25cm}]{geometry}
+\usepackage[a4paper, body={17cm,26cm}]{geometry}
 \usepackage{float}
 \usepackage{framed}
 
@@ -120,8 +120,10 @@ $q_A$ & $q_B$ & $q_C$ & $q_D$ & $q_E$ & $q_F$ \\
 \end{tabular}
 \end{center}
 
+Le bénéfice total dans ce cas est de : $10\:408\,$€
+
 On remarque que le produit E est le plus rentable, puis le produit F, puis C, puis B, puis A et enfin D.
-De ce fait, il faut favoriser la production des produits en suivant cet ordre et donc facorisé largement le produit E à contrario du produit D.
+De ce fait, il faut favoriser la production des produits en suivant cet ordre et donc favorisé largement le produit E à contrario du produit D.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% RESP ATELIER %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -218,7 +220,19 @@ $q_A$ & $q_B$ & $q_C$ & $q_D$ & $q_E$ & $q_F$ \\
 \end{tabular} 
 \end{center}
 
+Un autre point peut également être considéré pour évaluer une répartition optimale des stocks. Il s'agit du dernier point où on constate une variation brutale du coefficient directeur des courbes (qui correspond à 1717 unités de stocks, 366 produits, ou encore un bénéfice de 9786 €). A cet endroit, on obtient la répartition du stock suivante :
 
+\begin{center}
+\begin{tabular}{cccccc}
+\hline 
+$q_A$ & $q_B$ & $q_C$ & $q_D$ & $q_E$ & $q_F$ \\ 
+\hline 
+5.00 & 53,23 & 0,00 & 0,00 & 172,50 & 119,27 \\ 
+\hline 
+\end{tabular} 
+\end{center}
+
+Le deuxième choix a l'inconvénient d'être moins rentable niveau bénéfice/stockage mais présente l'avantage d'être mieux en accord avec le nombre de produits à produire vis-à-vis des autres responsables.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% RESP COMMERCIAL %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Responsable commercial}
@@ -282,15 +296,15 @@ $q_A$ & $q_B$ & $q_C$ & $q_D$ & $q_E$ & $q_F$ \\
 Voici le tableau récapitulatif pour les différents acteurs de l'entreprise :
 
 \begin{center}
-\begin{tabular}{l|cccccc|c}
+\begin{tabular}{l|cccccc|cc}
 \hline
-Responsables & $q_A$ & $q_B$ & $q_C$ & $q_D$ & $q_E$ & $q_F$ & $\sum q_i \quad$ \\
+Responsables & $q_A$ & $q_B$ & $q_C$ & $q_D$ & $q_E$ & $q_F$ & $\sum q_i \quad$ & Point de Mire \\
 \hline
-Comptable & 5 & 18 & 0 & 0 & 240 & 93,67 & 356,67 \\
-Responsable d'atelier & 5,00 & 54.64 & 38,85 & 0,00 & 181,71 & 98,43 & 378,63 \\
-Responsable des stocks & 5,00 & 5,00 & 0,00 & 0,00 & 56,5 & 167,5 & 234,00 \\
-Responsable commercial & 119.08 & 6.91 & 42.58 & 0.00 & 119.08 & 87.24 & 374,89 \\
-Responsable personnel & 270.00 & 5.00 & 70.00 & 0.00 & 0.00 & 0.00 & 345,00 \\
+Comptable & 5,00 & 18,00 & 0,00 & 0,00 & 240,00 & 93,67 & 356,67 & $10 \:048\,$€\\
+Responsable d'atelier & 5,00 & 54.64 & 38,85 & 0,00 & 181,71 & 98,43 & 378,63 & 378,63 produits\\
+Responsable des stocks & 5,00 & 5,00 & 0,00 & 0,00 & 56,5 & 167,5 & 234,00 & $1\:003\,$ unités de stocks\\
+Responsable commercial & 119.08 & 6.91 & 42.58 & 0.00 & 119.08 & 87.24 & 374,89 & $\frac{q_A}{q_E}=1$\\
+Responsable personnel & 270.00 & 5.00 & 70.00 & 0.00 & 0.00 & 0.00 & 345,00 & $940\,$ min \\
 
 \hline
 \end{tabular}
