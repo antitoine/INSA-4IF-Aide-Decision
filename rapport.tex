@@ -13,6 +13,7 @@
 \usepackage[a4paper, body={17cm,26cm}]{geometry}
 \usepackage{float}
 \usepackage{framed}
+\usepackage[toc,page]{appendix} 
 
 
 %%% Custom sectioning
@@ -49,6 +50,7 @@
 \usepackage{cases}
 \usepackage{color}
 \usepackage{xcolor}
+\usepackage{relsize}
 
 \usepackage{caption}
 \DeclareCaptionFont{white}{\color{white}}
@@ -440,8 +442,65 @@ Responsable personnel & 270.00 & 5.00 & 70.00 & 0.00 & 0.00 & 0.00 & 345,00 & $9
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \part{\'Etude du problème soumis par le Responsable de l'entreprise}
 
-\newpage
 
+
+\part{Analyse Multicritère}
+
+Le but est de choisir la meilleure solution parmi toutes celles proposées. Pour cela, la méthode Electre 1 nous a paru être la plus adaptée.
+Nous avons commencé par éliminer les solutions dominées, c’est-à-dire les solutions pour lesquelles il existe une meilleure autre solution pour tous les critères.\\
+
+On constate alors que :
+
+\begin{equation*}
+  \left.
+    \begin{aligned}
+	e & \rightarrow g \\
+ h & \rightarrow f \\
+ h & \rightarrow c 
+    \end{aligned}
+  \right. \quad \quad \rightarrow \text{ : “domine”}
+\end{equation*}
+
+Chaque critère est pondéré selon les pondérations choisies lors de la programmation multicritère (partie précédente).
+Nous retenons donc un poids de 4 pout le bénéfice, 1 pour la gestion du stock, 2 pour l’équilibre de la production A/E et 1 pour la réduction du temps de la machine 4.
+
+
+Ensuite, à partir de notre nouvelle table de jugement (qui ne contient alors que les solutions non-dominées), nous avons écrit les matrices de concordance et de discordance. La matrice de concordance montre la similarité entre deux solutions, tandis que la matrice de discordance montre plutôt les écarts.\\
+
+Matrice de concordance :
+
+\begin{equation*}
+C(A_i, A_j) = \frac{\mathlarger{\mathlarger{\sum}}\limits_{\mathsmaller{k \in P^+ \cup P^=}} p_k}{\mathlarger{\mathlarger{\sum}}\limits_{\mathsmaller{I \in P}} p_I}
+\end{equation*} 
+
+On calcule la somme des poids des critères pour lesquels la solution i est meilleure que la j, puis on la divise par la somme totale des poids de tous les critères.\\
+
+Matrice de discordance : 
+
+\begin{equation*}
+D(A_i, A_j) = \frac{\mathlarger{\mathlarger{\text{Max}}}_{\mathsmaller{k \in P^- }} (e_{jk} - e_{ik})}{\text{echmax}}
+\end{equation*} 
+
+On compare la solution i et la j. On récupère la plus grande valeur de la différence entre la note de j et la note de i, tous critères compris. Puis on divise cette valeur par l’échelle la plus grande.\\
+
+\Todo{[insérer les deux matrices]}
+
+Finalement, nous choisissons tout d’abord un seuil de concordance, qui correspond à la similarité que l’on tolère entre nos solutions. Ensuite, nous prenons un seuil de discordance, qui correspond à l’écart que l’on tolère entre nos solutions. Ils sont tous les deux compris entre 0 et 1, comme toutes les valeurs de nos matrices de concordance et discordance.\\
+
+\bf{Seuil de concordance :} 0,7
+
+\bf{Seuil de discordance :} 0,3 puis 0,5 (le seuil à 0,3 ne donnant pas un graphe concluant, nous avons légèrement augmenté notre tolérance au niveau de la discordance)
+
+\Todo{[insérer tableau final récapitulatif + graphe]
+[note pour Huggy : on pourra s’en occuper si tu veux ;)]}
+
+À partir de ces seuils, nous avons pu définir quelle solution dominait les autres de la façon suivante : soit une solution A. On la compare avec une autre solution B : si la discordance de A par rapport à B est inférieure au seuil de discordance et que la concordance de A par rapport à B est supérieure au seuil de concordance, alors la solution A domine la B.
+
+Avec le seuil de discordance à 0,5, on peut conclure que la solution A est la meilleure car elle surclasse les autres (cf. graphe précédent).
+Cependant, avec le seuil de discordance à 0,3 (donc un peu plus sévère), la solution A semble être à peu près équivalente à la E. En effet, la solution E est assez disparate (certains critères remportent une excellente note, tandis que d’autres critères ont une note très basse), alors que la A est beaucoup plus homogène. Le choix de la meilleure solution entre ces deux-là se fait donc en fonction de notre tolérance à la compensation des notes entre elles.
+
+
+\begin{appendices} 
 \lstlistoflistings
 
 \lstinputlisting[caption=Comptable]{scripts/Comptable.m}
@@ -449,6 +508,8 @@ Responsable personnel & 270.00 & 5.00 & 70.00 & 0.00 & 0.00 & 0.00 & 345,00 & $9
 \lstinputlisting[caption=Responsable Commercial]{scripts/ResponsableCommercial.m}
 \lstinputlisting[caption=Responsable Stocks]{scripts/ResponsableStock.m}
 \lstinputlisting[caption=Responsable Personel]{scripts/ResponsablePersonnel.m}
+\lstinputlisting[caption=Analyse Multicritère]{scripts/AnalyseMulticritere.m}
+\end{appendices} 
 
 %%% End document
 \end{document}
