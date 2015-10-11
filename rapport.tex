@@ -15,7 +15,7 @@
 \usepackage{framed}
 \usepackage[toc,page]{appendix} 
 \usepackage{multicol}
-
+\usepackage{colortbl}
 
 %%% Custom sectioning
 \usepackage{sectsty}
@@ -65,6 +65,8 @@
 
 \delimitershortfall-1sp
 \newcommand\abs[1]{\left|#1\right|}
+
+
 
 
 %%% Begin document
@@ -299,7 +301,9 @@ On souhaite donc minimiser la fonction suivante :
 
 Cependant, sans contrainte supplémentaire, on se place dans le cas irréaliste où l'on pourrait diminuer d'autant que l'on souhaite le nombre de produits fabriqués par l'entreprise.\\
 Il faut donc ajouter une contrainte, qui peut être une contrainte sur un nombre minimal de produits à fabriquer, ou bien sur le bénéfice souhaité par exemple.\\
-Pour l'étude, il a été fixé un nombre minimal de produit à fabriquer. Nous avons fait varier ce nombre pour voir s'il n'y a pas un "sweet spot".
+Pour l'étude, il a été fixé un nombre minimal de produit à fabriquer. Nous avons fait varier ce nombre pour voir s'il n'y a pas un point idéal sur les courbes.\\
+
+Il est important de noter que les courbes suivantes ont été obtenues en faisant varier uniquement la contrainte sur le nombre de produits minimum à fabriquer.\\
 
 \bf{Résultat :}
 
@@ -397,6 +401,8 @@ La première solution qui nous vient à l’esprit serait de minimiser la foncti
 
 Cependant, les résultats que l’on obtient en ne prenant en compte que cette équation ne sont pas satisfaisant, car on se retrouverait à ne produire que 5 unités de A et B et 0 des autres. Ce résultat est mathématiquement juste au vu des contraintes que nous avions précisé, mais ne suffit pas pour garder une rentabilité à l’entreprise. Pour trouver une solution plus juste, nous allons prendre en compte une certaine quantité d’unités minimales à produire. \\
 
+\bf{Contraintes supplémentaires :}
+
 Nous reprenons donc les résultats obtenus par le responsable d’atelier, et en faisant varier les différentes quantités de produits fabriqués selon sa méthode de calcul, nous avons établi un graphique permettant d’évaluer le temps d’utilisation de la machine 4.\\
 
 \begin{figure}[H]
@@ -442,10 +448,88 @@ Responsable personnel & 270.00 & 5.00 & 70.00 & 0.00 & 0.00 & 0.00 & 345,00 & $9
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% RESP DES STOCK %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \part{\'Etude du problème soumis par le Responsable de l'entreprise}
+\setcounter{section}{0}
+
+\section{Introduction et explication de la démarche}
+
+Nous allons essayer dans cette deuxième partie de satisfaire au mieux les différents responsables. Pour résoudre ce problème, nous allons d'abord établir la matrice avec les points de mire des différents responsable. Ensuite, comme les objectifs des différents responsables sont exprimés dans des unités différentes, il faut normaliser la matrice des points de mire.
+
+\section{Obtention des points de Mire}
+On calcule dans un premier le résultat espéré pour chaque responsable, en fonction du point de mire des autres responsables. On obtient alors le tableau suivant : 
+
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{c|ccccc}
+ & Comptable & Resp. Atelier & Resp Stock & Resp Commercial &  Resp Personnel\\ 
+\hline 
+Comptable &  \cellcolor{blue!10} $10 \:048\,$€ &  &  &  &  \\ 
+Resp. Atelier &  & \cellcolor{blue!10}378,63 &  &  &  \\ 
+Resp Stock &  &  & \cellcolor{blue!10}$1\:003\,$ unités de stocks &  & \\ 
+Resp Commercial &  &  &  & \cellcolor{blue!10}$\frac{q_A}{q_E}=1$ &  \\ 
+Resp Personnel &  &  &  &  & \cellcolor{blue!10}$940\,$ min \\ 
+\end{tabular}
+\caption{Matrice des points de mire} 
+\end{center}
+\end{table}
+
+Cette matrice ne permet pas de faire ressortir de résultats qui paraissent satisfaisant au premier abord. On peut juste constater qu'il va falloir trouver un compromis que se rapproche au plus du point de mire de chaque responsable.
+
+\section{Normalisation de la matrice}
+
+Nous pouvons ensuite normaliser la matrice obtenu pour ne pas tenir compte des unités. On mesure ainsi le rapport entre le point de mire de chaque responsable et le résultat qu'il obtient avec la solution d'un autre responsable. On obtient alors le résultat suivant : 
+
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{c|ccccc}
+ & Comptable & Resp. Atelier & Resp Stock & Resp Commercial &  Resp Personnel\\ 
+\hline 
+Comptable &  \cellcolor{black!5} 100 \% &  &  &  &  \\ 
+Resp. Atelier &  & \cellcolor{black!5}100 \% &  &  &  \\ 
+Resp Stock &  &  & \cellcolor{black!5}100 \% &  & \\ 
+Resp Commercial &  &  &  & \cellcolor{black!5}100 \% &  \\ 
+Resp Personnel &  &  &  &  & \cellcolor{black!5}100 \% \\ 
+\end{tabular}
+\caption{Matrice des points de mire} 
+\end{center}
+\end{table}
+
+\section{Dégradation des fonctions objectifs}
+Comme aucun résultat ne semble être meilleur que les autres, on va dégrader successivement les différentes fonctions objectif des responsables de manière à trouver une solution optimale.\\
+
+\begin{itemize}
+\item Dégradation de la fct objectif pour le resp d'atelier : au moins 90 de son point de mire, soit 340 produits
+\item Pour le stock : 1 003 selon le resp stock, au max. On autorise jusqu'à 30\% au-dessus, soit 1 309 unité de stock
+\item Pour le commercial : Ecart entre $q_A$ et $q_E$ doit être inférieur à 50\% des 119 produits A et 119 produits, soit 60
+
+\item Pour le responsable du personnel : 910 m selon le resp. on autorise jusqu'à 80\% au-dessus, soit 1 692
+\end{itemize}
 
 
+
+\section{Résultats : Matrice de gain}
+
+
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{c|ccccc}
+ & Comptable & Resp. Atelier & Resp Stock & Resp Commercial &  Resp Personnel\\ 
+\hline 
+Comptable & 96.4082 & 94.2001 & 31.5374 & 12.9630 & 67.8118 \\ 
+Resp. Atelier & 95.4733 & 100.0000 & 17.1914 & 34.5519 & 69.5544 \\ 
+Resp Stock & 64.4825 & 61.8018 & 99.9501 & 80.9259 & 89.0745\\ 
+Resp Commercial & 74.3037 & 99.0122 & 17.5683 & 100.0000 & 81.5013 \\ 
+Resp Personnel & 24.8765 & 91.1180 & 21.0369 & 0 & 100.0000 \\ 
+\end{tabular}
+\caption{Matrice de gain calculée} 
+\end{center}
+\end{table}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \part{Analyse Multicritère}
+\setcounter{section}{0}
+
 
 \section{Introduction et choix de la méthode de résolution}
 Le but est de choisir la meilleure solution parmi toutes celles proposées. Pour cela, la méthode \textbf{Electre 1} nous a paru être la plus adaptée.
@@ -505,7 +589,7 @@ Chaque critère est pondéré selon les pondérations choisies lors de la progra
 Nous retenons donc un poids de :\\
 
  \begin{itemize}
-\item 4 pout le bénéfice,
+\item 4 pour le bénéfice,
 \item 1 pour la gestion du stock,
 \item 2 pour l’équilibre de la production A/E
 \item 1 pour la réduction du temps de la machine 4.\\
