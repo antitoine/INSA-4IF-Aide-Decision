@@ -1,4 +1,4 @@
-addpath(genpath('/opt/graphviz4matlab'))
+addpath(genpath('/home/hverlin/Softwares/Matlab/plugins/graphviz4matlab'))
 
 Jfull = [
     6 5 5 5;

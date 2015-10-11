@@ -14,6 +14,7 @@
 \usepackage{float}
 \usepackage{framed}
 \usepackage[toc,page]{appendix} 
+\usepackage{multicol}
 
 
 %%% Custom sectioning
@@ -446,7 +447,46 @@ Responsable personnel & 270.00 & 5.00 & 70.00 & 0.00 & 0.00 & 0.00 & 345,00 & $9
 
 \part{Analyse Multicritère}
 
-Le but est de choisir la meilleure solution parmi toutes celles proposées. Pour cela, la méthode Electre 1 nous a paru être la plus adaptée.
+\section{Introduction et choix de la méthode de résolution}
+Le but est de choisir la meilleure solution parmi toutes celles proposées. Pour cela, la méthode \textbf{Electre 1} nous a paru être la plus adaptée.
+
+La matrice de jugement a été reproduite ci-dessous. Celle-ci représente l'importance des critères $g_1$, $g_2$, $g_3$ et $g_4$ sur une échelle de 0 à 10. Ces critères sont : 
+
+\begin{multicols}{2}
+
+\begin{itemize}
+\item $g_1$ : le bénéfice
+\item $g_2$ : la gestion du stock
+\item $g_3$ : l'équilibre commercial
+\item $g_4$ : l'utilisation de la machine 4
+\end{itemize}
+
+
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{c|cccc}
+ & $g_1$ & $g_2$ & $g_3$ & $g_4$ \\ 
+\hline 
+a & 6 & 5 & 5 & 5 \\ 
+b & 5 & 2 & 6 & 7 \\ 
+c & 3 & 4 & 7 & 3 \\ 
+d & 3 & 7 & 5 & 4 \\ 
+e & 5 & 4 & 3 & 9 \\ 
+f & 2 & 5 & 7 & 3 \\ 
+g & 5 & 4 & 2 & 9 \\ 
+h & 3 & 5 & 7 & 4 \\ 
+\end{tabular}
+\caption{Matrice de jugement} 
+\end{center}
+\end{table}
+
+\end{multicols}
+
+
+\section{Explication de la démarche}
+
+\subsection{Elimination des solutions dominées}
+
 Nous avons commencé par éliminer les solutions dominées, c’est-à-dire les solutions pour lesquelles il existe une meilleure autre solution pour tous les critères.\\
 
 On constate alors que :
@@ -461,42 +501,125 @@ On constate alors que :
   \right. \quad \quad \rightarrow \text{ : “domine”}
 \end{equation*}
 
-Chaque critère est pondéré selon les pondérations choisies lors de la programmation multicritère (partie précédente).
-Nous retenons donc un poids de 4 pout le bénéfice, 1 pour la gestion du stock, 2 pour l’équilibre de la production A/E et 1 pour la réduction du temps de la machine 4.
+Chaque critère est pondéré selon les pondérations choisies lors de la programmation multicritère (partie précédente). 
+Nous retenons donc un poids de :\\
+
+ \begin{itemize}
+\item 4 pout le bénéfice,
+\item 1 pour la gestion du stock,
+\item 2 pour l’équilibre de la production A/E
+\item 1 pour la réduction du temps de la machine 4.\\
+\end{itemize}
+
+
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{c|cccc}
+ & $g_1$ (4) & $g_2$ (1) & $g_3$ (2) & $g_4$ (1) \\ 
+\hline 
+a & 6 & 5 & 5 & 5 \\ 
+b & 5 & 2 & 6 & 7 \\ 
+d & 3 & 7 & 5 & 4 \\ 
+e & 5 & 4 & 3 & 9 \\ 
+h & 3 & 5 & 7 & 4 \\ 
+\end{tabular} 
+\caption{Nouvelle matrice de jugement\\ 
+les poids sont indiqués entre parenthèses} 
+\end{center}
+\end{table}
 
 
 Ensuite, à partir de notre nouvelle table de jugement (qui ne contient alors que les solutions non-dominées), nous avons écrit les matrices de concordance et de discordance. La matrice de concordance montre la similarité entre deux solutions, tandis que la matrice de discordance montre plutôt les écarts.\\
 
-Matrice de concordance :
+\subsection{Matrice de concordance}
 
 \begin{equation*}
 C(A_i, A_j) = \frac{\mathlarger{\mathlarger{\sum}}\limits_{\mathsmaller{k \in P^+ \cup P^=}} p_k}{\mathlarger{\mathlarger{\sum}}\limits_{\mathsmaller{I \in P}} p_I}
 \end{equation*} 
 
-On calcule la somme des poids des critères pour lesquels la solution i est meilleure que la j, puis on la divise par la somme totale des poids de tous les critères.\\
+On calcule la somme des poids des critères pour lesquels la solution $i$ est meilleure que la $j$, puis on la divise par la somme totale des poids de tous les critères.\\
 
-Matrice de discordance : 
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{c|ccccc}
+ & a & b & d & e & h \\ 
+\hline 
+a & 0 & 0.50 & 0.75 & 0.75 & 0.75 \\ 
+b & 0.50 & 0 &	0.75 &	 0.50 & 0.50 \\ 
+d & 0.50 & 0.25 & 0 & 0.50 & 0.75 \\ 
+e & 0.25 & 0.75 & 0.50 & 0 & 0.50 \\ 
+h & 0.50 & 0.50 & 0.75 & 0.50 & 0\\ 
+\end{tabular} 
+\caption{Matrice de concordance} 
+\end{center}
+\end{table}
+
+
+
+\subsection{Matrice de discordance} 
 
 \begin{equation*}
 D(A_i, A_j) = \frac{\mathlarger{\mathlarger{\text{Max}}}_{\mathsmaller{k \in P^- }} (e_{jk} - e_{ik})}{\text{echmax}}
 \end{equation*} 
 
-On compare la solution i et la j. On récupère la plus grande valeur de la différence entre la note de j et la note de i, tous critères compris. Puis on divise cette valeur par l’échelle la plus grande.\\
+On compare la solution $i$ et la $j$. On récupère la plus grande valeur de la différence entre la note de $j$ et la note de $i$, tous critères compris. Puis on divise cette valeur par l’échelle la plus grande.\\
 
-\Todo{[insérer les deux matrices]}
+
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{c|ccccc}
+ & a & b & d & e & h \\ 
+\hline 
+a & 0 & 0.20	 & 0.20 & 0.40 & 0.20 \\ 
+b & 0.30 & 0	& 0.50 & 0.20 &	0.30 \\ 
+d & 0.30 & 0.30 & 0 & 0.50 &	0.20 \\ 
+e & 0.20 & 0.30 & 0.30 & 0 & 0.40 \\ 
+h & 0.30 & 0.30 & 0.20 &	0.50 & 0\\ 
+\end{tabular} 
+\caption{Matrice de discordance} 
+\end{center}
+\end{table}
+
+\subsection{seuillage des résultats}
 
 Finalement, nous choisissons tout d’abord un seuil de concordance, qui correspond à la similarité que l’on tolère entre nos solutions. Ensuite, nous prenons un seuil de discordance, qui correspond à l’écart que l’on tolère entre nos solutions. Ils sont tous les deux compris entre 0 et 1, comme toutes les valeurs de nos matrices de concordance et discordance.\\
 
-\bf{Seuil de concordance :} 0,7
+\begin{itemize}
+\item \bf{Seuil de concordance :} 0,7
+\item \bf{Seuil de discordance :} 0,3 puis 0,5 (le seuil à 0,3 ne donnant pas un graphe concluant, nous avons légèrement augmenté notre tolérance au niveau de la discordance)
+\end{itemize}
 
-\bf{Seuil de discordance :} 0,3 puis 0,5 (le seuil à 0,3 ne donnant pas un graphe concluant, nous avons légèrement augmenté notre tolérance au niveau de la discordance)
+\section{Résultats}
 
-\Todo{[insérer tableau final récapitulatif + graphe]
-[note pour Huggy : on pourra s’en occuper si tu veux ;)]}
+À partir de ces seuils, nous avons pu définir quelle solution dominait les autres de la façon suivante : \\
+Soit une solution A. On la compare avec une autre solution B. Si la discordance de A par rapport à B est inférieure au seuil de discordance et que la concordance de A par rapport à B est supérieure au seuil de concordance, alors la solution A domine la B.\\
 
-À partir de ces seuils, nous avons pu définir quelle solution dominait les autres de la façon suivante : soit une solution A. On la compare avec une autre solution B : si la discordance de A par rapport à B est inférieure au seuil de discordance et que la concordance de A par rapport à B est supérieure au seuil de concordance, alors la solution A domine la B.
+Voici les résultats obtenus avec un seuil de concordance de 0.7 et un seuil de discordance de 0.5 : 
+\begin{multicols}{2}
 
-Avec le seuil de discordance à 0,5, on peut conclure que la solution A est la meilleure car elle surclasse les autres (cf. graphe précédent).
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{c|ccccc}
+ & a & b & d & e & h \\ 
+\hline 
+a & 0 & 0 & 1 & 1 & 1 \\ 
+b & 0 & 0 & 1 & 1 & 0 \\ 
+d & 0 & 0 & 0 & 0 & 1 \\ 
+e & 0 & 1 & 0 & 0 & 0 \\ 
+h & 0 & 0 & 1 & 0 & 0\\ 
+\end{tabular} 
+\caption{Matrice de surclassement} 
+\end{center}
+\end{table}
+\begin{figure}[H]
+\centering
+\includegraphics[width=5cm]{figures/GraphDeSurClassement.png}
+\caption{Graphe de surclassement}
+\end{figure}
+\end{multicols}
+
+Avec le seuil de discordance à 0,5, on peut conclure que \textbf{la solution A est la meilleure car elle surclasse les autres et elle n'est pas surclassée} (cf. graphe de surclassement).\\
+
 Cependant, avec le seuil de discordance à 0,3 (donc un peu plus sévère), la solution A semble être à peu près équivalente à la E. En effet, la solution E est assez disparate (certains critères remportent une excellente note, tandis que d’autres critères ont une note très basse), alors que la A est beaucoup plus homogène. Le choix de la meilleure solution entre ces deux-là se fait donc en fonction de notre tolérance à la compensation des notes entre elles.
 
 
@@ -508,7 +631,11 @@ Cependant, avec le seuil de discordance à 0,3 (donc un peu plus sévère), la s
 \lstinputlisting[caption=Responsable Commercial]{scripts/ResponsableCommercial.m}
 \lstinputlisting[caption=Responsable Stocks]{scripts/ResponsableStock.m}
 \lstinputlisting[caption=Responsable Personel]{scripts/ResponsablePersonnel.m}
-\lstinputlisting[caption=Analyse Multicritère]{scripts/AnalyseMulticritere.m}
+\newpage
+\lstinputlisting[caption=Programation Linéaire Multicritère]{scripts/partie2.m}
+\newpage
+\lstinputlisting[caption=Analyse Multicritère]{scripts/partie3.m}
+
 \end{appendices} 
 
 %%% End document
