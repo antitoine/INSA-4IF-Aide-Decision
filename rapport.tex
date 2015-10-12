@@ -63,6 +63,8 @@
 \lstset{breaklines=true,columns=fullflexible}
 \colorlet{shadecolor}{black!10}
 
+
+
 \delimitershortfall-1sp
 \newcommand\abs[1]{\left|#1\right|}
 
@@ -435,7 +437,7 @@ Voici le tableau récapitulatif pour les différents acteurs de l'entreprise :
 \hline
 Responsables & $q_A$ & $q_B$ & $q_C$ & $q_D$ & $q_E$ & $q_F$ & $\sum q_i \quad$ & Point de Mire \\
 \hline
-Comptable & 5,00 & 18,00 & 0,00 & 0,00 & 240,00 & 93,67 & 356,67 & $10 \:048\,$€\\
+Comptable & 5,00 & 18,00 & 0,00 & 0,00 & 240,00 & 93,67 & 356,67 & $10 \:408\,$€\\
 Responsable d'atelier & 5,00 & 54.64 & 38,85 & 0,00 & 181,71 & 98,43 & 378,63 & 378,63 produits\\
 Responsable des stocks & 5,00 & 5,00 & 0,00 & 0,00 & 56,5 & 167,5 & 234,00 & $1\:003\,$ unités de stocks\\
 Responsable commercial & 119.08 & 6.91 & 42.58 & 0.00 & 119.08 & 87.24 & 374,89 & $\frac{q_A}{q_E}=1$\\
@@ -462,7 +464,7 @@ On calcule dans un premier le résultat espéré pour chaque responsable, en fon
 \begin{tabular}{c|ccccc}
  & Comptable & Resp. Atelier & Resp Stock & Resp Commercial &  Resp Personnel\\ 
 \hline 
-Comptable &  \cellcolor{blue!10} $10 \:048\,$€ &  &  &  &  \\ 
+Comptable &  \cellcolor{blue!10} $10 \:408\,$€ & 356,67 & 1689,68 & 235 & 3965,69 \\ 
 Resp. Atelier &  & \cellcolor{blue!10}378,63 &  &  &  \\ 
 Resp Stock &  &  & \cellcolor{blue!10}$1\:003\,$ unités de stocks &  & \\ 
 Resp Commercial &  &  &  & \cellcolor{blue!10}$\frac{q_A}{q_E}=1$ &  \\ 
@@ -471,6 +473,15 @@ Resp Personnel &  &  &  &  & \cellcolor{blue!10}$940\,$ min \\
 \caption{Matrice des points de mire} 
 \end{center}
 \end{table}
+
+% 
+10408.9028          356.67         1689.68            -235         3965.69
+  9593.157          378.63         1833.57         -176.71         3801.89
+6479.20275             234          1002.5           -51.5            1967
+7466.03334          374.89         1829.79               0         2678.88
+ 2499.5935             345            1795             270             940
+8219.57732        372.7819       1799.9998             -60       3061.5786
+
 
 Cette matrice ne permet pas de faire ressortir de résultats qui paraissent satisfaisant au premier abord. On peut juste constater qu'il va falloir trouver un compromis que se rapproche au plus du point de mire de chaque responsable.
 
@@ -489,9 +500,11 @@ Resp Stock &  &  & \cellcolor{black!5}100 \% &  & \\
 Resp Commercial &  &  &  & \cellcolor{black!5}100 \% &  \\ 
 Resp Personnel &  &  &  &  & \cellcolor{black!5}100 \% \\ 
 \end{tabular}
-\caption{Matrice des points de mire} 
+\caption{Matrice des points de mire normalisée} 
 \end{center}
 \end{table}
+
+
 
 \section{Dégradation des fonctions objectifs}
 Comme aucun résultat ne semble être meilleur que les autres, on va dégrader successivement les différentes fonctions objectif des responsables de manière à trouver une solution optimale.\\
@@ -710,13 +723,17 @@ Cependant, avec le seuil de discordance à 0,3 (donc un peu plus sévère), la s
 \begin{appendices} 
 \lstlistoflistings
 
-\lstinputlisting[caption=Comptable]{scripts/Comptable.m}
-\lstinputlisting[caption=Responsable Atelier]{scripts/ResponsableAtelier.m}
-\lstinputlisting[caption=Responsable Commercial]{scripts/ResponsableCommercial.m}
-\lstinputlisting[caption=Responsable Stocks]{scripts/ResponsableStock.m}
-\lstinputlisting[caption=Responsable Personel]{scripts/ResponsablePersonnel.m}
+\lstinputlisting[caption=Comptable]{scripts/part1/Comptable.m}
+\lstinputlisting[caption=Responsable Atelier]{scripts/part1/ResponsableAtelier.m}
+\lstinputlisting[caption=Responsable Commercial]{scripts/part1/ResponsableCommercial.m}
+\lstinputlisting[caption=Responsable Stocks]{scripts/part1/ResponsableStock.m}
+\lstinputlisting[caption=Responsable Personel]{scripts/part1/ResponsablePersonnel.m}
 \newpage
-\lstinputlisting[caption=Programation Linéaire Multicritère]{scripts/partie2.m}
+\lstinputlisting[caption=Programation Linéaire Multicritère]{scripts/part2/ad_scores.m}
+\lstinputlisting[caption=Programation Linéaire Multicritère]{scripts/part2/gain_matrix.m}
+\lstinputlisting[caption=Programation Linéaire Multicritère]{scripts/part2/RepartitionOptimum.m}
+\lstinputlisting[caption=Programation Linéaire Multicritère]{scripts/part2/RespEntreprise.m}
+
 \newpage
 \lstinputlisting[caption=Analyse Multicritère]{scripts/partie3.m}
 
