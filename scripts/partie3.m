@@ -1,35 +1,5 @@
 addpath(genpath('/home/hverlin/Softwares/Matlab/plugins/graphviz4matlab'))
 
-Jfull = [
-    6 5 5 5;
-    5 2 6 7;
-    3 4 7 3;
-    3 7 5 4;
-    5 4 3 9;
-    2 5 7 3;
-    5 4 2 9;
-    3 5 7 4];
-
-
-%nbRows = 0;
-%for i = 1:size(Jfull, 1)
-%    for j = 1:size(Jfull, 1)
-%        if (i ~= j)
-%            domine = true;
-%           for c = 1:size(Jfull, 2)
-%               if (Jfull(i,c) > Jfull(j,c))
-%                domine = false;
-%                break;
-%               end
-%           end
-%           if (domine == false)
-%               J = insertrows(J, Jfull(i,:), nbRows);
-%               nbRows = nbRows +1;
-%           end
-%        end
-%    end
-%end
-
 J = [
     6 5 5 5;
     5 2 6 7;
