@@ -426,6 +426,8 @@ $q_A$ & $q_B$ & $q_C$ & $q_D$ & $q_E$ & $q_F$ \\
 
 Nous pouvons résumer les différents résultats sélectionnés pour chaque responsable dans le tableau ci-dessous. À chaque responsable est également associé un point de mire, qui correspond à son objectif, réalisé grâce à la répartition des produits fabriqués qui a été retenue.
 
+
+\Todo{problème sur la ligne du responsable des stocks !}
 \begin{center}
 \begin{tabular}{l|cccccc|cc}
 \hline
@@ -460,13 +462,13 @@ Nous calculons dans un premier temps le résultat espéré pour chaque responsab
 \begin{table}[H]
 \begin{center}
 \begin{tabular}{c|ccccc}
- & Comptable (€) & Resp. Atelier (Unités) & Resp Stock (Stock total) & Resp Commercial ($\abs{q_A - q_E}$) &  Resp Personnel (min) \\ 
+ & \shortstack{Comptable \\ \scriptsize{(€)}} & \shortstack{Resp. Atelier \\ \scriptsize (Unités)} & \shortstack{Resp Stock \\ \scriptsize (Stock total)} & \shortstack{Resp Commercial \\ \scriptsize ($\abs{q_A - q_E}$)} &   \shortstack{Resp Personnel \\ \scriptsize (min)} \\ 
 \hline 
 Comptable &  \cellcolor{blue!10} 10 408 & 356,67 & 1689,68 & 235 & 3965,69 \\ 
 Resp. Atelier & 9 593,16 & \cellcolor{blue!10}378,63 & 1833,57 & 176,71 & 3801,89 \\ 
 Resp Stock & 6 479,20 & 234,00 & \cellcolor{blue!10}$1\:003$ & 51.5 & 1967 \\ 
 Resp Commercial & 7 466,03 & 374.89 & 1829.79 & \cellcolor{blue!10} 0 & 2678.88 \\ 
-Resp Personnel & 2 499,60 & 345 & 1795 & 270 & \cellcolor{blue!10}$940\,$ min \\ 
+Resp Personnel & 2 499,60 & 345 & 1795 & 270 & \cellcolor{blue!10}$940\,$ \\ 
 \end{tabular}
 \caption{Matrice des points de mire} 
 \end{center}
