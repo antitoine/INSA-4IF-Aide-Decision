@@ -6,13 +6,14 @@
 function [ R, RN ] = ad_scores( Q, PM )
 
 % Definition des fonctions objectif de chaque responsable
-fobj_comptable = [5.8883;11.6167;12.1667;1.3;31.65;27.4833];
+fobj_comptable = [5.8883; 11.6167; 12.1667; 1.3; 31.65; 27.4833];
          	 
-fobj_resp_atelier = [1;1;1;1;1;1];
+fobj_resp_atelier = [1; 1; 1; 1; 1; 1];
             	 
-fobj_resp_stock = [5;5;6;10;5;4];
+fobj_resp_stock = [5; 5; 6; 10; 5; 4];
           	 
-fobj_resp_co = [1;0;0;0;-1;0]; % On considere l'ecart entre les produits A et E
+% On considere l'ecart entre les produits A et E
+fobj_resp_co = [1; 0; 0; 0; -1; 0]; 
 
 fobj_personnel = [2;10;5;4;13;7];
          	 

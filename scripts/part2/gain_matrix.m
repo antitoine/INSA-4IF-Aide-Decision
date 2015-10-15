@@ -1,4 +1,4 @@
-%   Cette fonction calcule la matrice de gain
+% Cette fonction calcule la matrice de gains
 function [Gain, Gains_PointsMire] = gain_matrix(Q)
 
 % Creation de la matrice de points optimaux pour chaque
@@ -10,13 +10,16 @@ function [Gain, Gains_PointsMire] = gain_matrix(Q)
 %  Resp Commercial
 %  Resp Personnel
 %
-Q_test = [5 18 0 0 240 93.67;
+Q_test = [
+    5 18 0 0 240 93.67;
 	5 54.64 38.85 0 181.71 98.43;
-	5 5 0 0 56.5 167.5;
+	5.0000   59.8958    0.0000    0.0000  188.5000  112.6042;
 	119.08 6.91 42.58 0 119.08 87.24;
-	270 5 70 0 0 0;
-    %118.2609    8.6602   32.4312    0.0000  121.3665   90.9938]; % Avec resp personnel
-    81.5789   24.0602   30.8271    0.0000  141.5789   94.7368]; % Sans resp personnel
+	270 5 70 0 0 0
+    
+]; % Sans resp personnel
+
+Q = Q_test;
 
 [M, N] = size(Q);
 
@@ -28,6 +31,8 @@ for i=1:M
     	e = e_tmp;
 	end
 end
+
+e = 270;
 
 % Point de Mire
 PM = [10048 378.63 1717 e 940];
@@ -42,7 +47,5 @@ for i=1:M
  	Gain(i,:) = RN;
     Gains_PointsMire(i,:) = R;
 end
-
-%num2str(Gains_PointsMire)
 
 end

@@ -1,4 +1,5 @@
 clear;
+
 A = [1 2 1 5 0 2;
 	2 2 1 2 2 1;
 	1 0 3 2 2 0;
@@ -90,5 +91,5 @@ xlabel('Stock total')
 ylabel('Benefice realise par unite de stock')
 title('Evolution du benefice realise par unite de stock, en fonction du stock total');
 
-b = [350; 620; 485; 4800; 4800; 4800; 4800; 4800; 4800; 4800; -350]; 
+b = [350; 620; 485; 4800; 4800; 4800; 4800; 4800; 4800; 4800; -366]; 
 [q, r, exflag] = linprog(f, A, b, [], [], lb, [], [], optimset('Display', 'off') );

@@ -27,9 +27,6 @@ R(1,3) = Q*fobj_resp_stock;
 R(1,4) = Q*fobj_resp_co;
 R(1,5) = Q*fobj_personnel;
 
-%display('R : ')
-%num2str(R)
-
 % On normalise les resultats selon chaque colonne
 % /!\ Attention, ne pas comparer les colonnes entre elles,
 % 	cela n'aurait aucun sens les echelles etant relatives
@@ -38,6 +35,6 @@ RN(1,1) = ( 1 - (abs(R(1,1) - PM(1,1))/PM(1,1)) ) * 100;
 RN(1,2) = ( 1 - (abs(R(1,2) - PM(1,2))/PM(1,2)) ) * 100;
 RN(1,3) = ( 1 - (abs(R(1,3) - PM(1,3))/PM(1,3)) ) * 100;
 RN(1,4) = (1 -  (abs(Q(1) - Q(5))/PM(1,4)))*100;
-RN(1,5) = ( 1 - ( abs(R(1,5) - PM(1,5)) / (PM(1,5)*10) ) ) * 100;
+RN(1,5) = ( 1 - ( abs(R(1,5) - PM(1,5)) / (PM(1,5)) ) ) * 100;
 
 end
