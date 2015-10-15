@@ -107,7 +107,7 @@ Afin de modéliser la production de l'atelier, il est nécessaire de définir pl
 
 \subsection{Contraintes sur la quantité}
 
-La quantité de chaque produit doit être supérieure à 0. Les produits $A$ et $B$ doivent être au moins fabriqués en 5 exemplaires par semaine.
+La quantité de chaque produit doit être supérieure ou égale à 0. Les produits $A$ et $B$ doivent être au moins fabriqués en 5 exemplaires par semaine.
 
 Ceci se traduit par les contraintes de domaines suivantes : 
 
@@ -117,7 +117,7 @@ q_A \geq 5, \quad q_B \geq 5, \quad q_C \geq 0, \quad q_D \geq 0, \quad q_E \geq
 \end{equation} 
 
 \subsection{Contraintes sur le stockage}
-Les contraintes de stockage imposent des quantités sur les matières premières. L'entreprise ne peut stocker qu'au maximum 350 unités de la matière première 1, 620 de la matière première 2 et 485 de la matière première 3. Sachant que l'on connaît le nombre de matières premières nécessaires à la fabrication de chaque produit, on obtient les trois contraintes suivantes :  
+Les contraintes de stockage imposent des quantités maximales sur les matières premières. L'entreprise ne peut stocker qu'au maximum 350 unités de la matière première 1, 620 de la matière première 2 et 485 de la matière première 3. Sachant que l'on connaît le nombre d'unités de matières premières nécessaires à la fabrication de chaque produit, on obtient les trois contraintes suivantes :  
 
 \begin{equation}
   \left\{
@@ -199,13 +199,13 @@ lb = \begin{bmatrix}
 \end{bmatrix} 
   \]
 
-Ainsi, pour reproduire les résultats obtenus dans ce rapport, il suffira d'utiliser la fonction \bf{linprog($f$, $A$, $b$, [], [], $lb$)} de \textit{Matlab}, où $f$ est un vecteur, dont les composants sont les coefficients de la fonction à minimiser.
+Ainsi, pour reproduire les résultats obtenus dans ce rapport, il suffira d'utiliser la fonction \bf{linprog($f$, $A$, $b$, [], [], $lb$)} de \textit{Matlab}, où $f$ est un vecteur, dont les composantes sont les coefficients de la fonction à minimiser.
 
 \begin{shaded}
 \vspace{-0.5cm}
 
 \subsection*{Notes sur les contraintes}
-Dans la suite du rapport, l'ensemble des responsables utilisera les équations \eqref{ctr_quantite}, \eqref{ctr_stockage} et \eqref{tps_travail}. \\
+Dans la suite du rapport, pour l'ensemble des responsables, nous utiliserons les équations \eqref{ctr_quantite}, \eqref{ctr_stockage} et \eqref{tps_travail}. \\
 
 Des contraintes supplémentaires peuvent être également ajoutées au cas par cas. Dans ce cas, elles seront explicitement précisées dans le texte.
 \end{shaded}
@@ -257,7 +257,7 @@ Nous pouvons remarquer que le produit E est le plus rentable, suivi du produit F
 \section{Responsable d'atelier}
 \bf{Problème soumis :}
 
-Le responsable de l'atelier souhaite maximiser la quantité totale de produits fabriqués. De ce fait, la fonction à maximiser ne devra pas favoriser un type de produit par rapport à un autre, seul le nombre total de produits fabrqués étant important.\\
+Le responsable de l'atelier souhaite maximiser la quantité totale de produits fabriqués. De ce fait, la fonction à maximiser ne devra pas favoriser un type de produit par rapport à un autre, seul le nombre total de produits fabriqués étant important.\\
 
 \bf{Solution proposée :}
 
@@ -282,7 +282,7 @@ $q_A$ & $q_B$ & $q_C$ & $q_D$ & $q_E$ & $q_F$ \\
 Nous constatons donc qu'il est préférable d'éviter de fabriquer des produits D si l'on souhaite maximiser le nombre de produits à fabriquer. Cependant, ceci n'est pas une solution qui sera compatible avec les autres responsables. En effet, il y a un déséquilibre important entre la production des produits $A$ et $E$, ce qui ne conviendra pas au responsable commercial.\\
 
 Cette étude nous permet de trouver la quantité maximale de produits qui peut être produite par l'entreprise, soit :
-\[ Q_{max} = 378,6 \text{ produits}\]
+\[ Q_{max} = 378,6 \text{ produits/semaine}\]
 
 Cette limite supérieure présente l'intérêt de proposer un intervale de recherche pour d'autres études.
 
@@ -291,7 +291,7 @@ Cette limite supérieure présente l'intérêt de proposer un intervale de reche
 \section{Responsable des stocks}
 \bf{Problème soumis :}
 
-Le responsable des stocks souhaite quant à lui minimiser la quantité de matières stockées (qu'elle soit brute ou transformée).\\
+Le responsable des stocks souhaite quant à lui minimiser la quantité de matières stockées (qu'elle soient brutes ou transformées).\\
 
 Ainsi, nous devons minimiser la quantité de produits stockés (c'est-à-dire minimiser $q_A + q_B + q_C + q_D + q_E + q_F$), ainsi que les matières premières stockées (soit $4q_A + 4q_B + 5q_C + 9q_D + 4q_E + 3q_F$).
 \\
@@ -325,9 +325,10 @@ Il est important de noter que les courbes suivantes ont été obtenues en faisan
 \begin{figure}[H]
 \centering
 \includegraphics[width=16cm]{figures/BenefFctStockTotal.png}
-\caption{Bénéfice réalisé en fonction du stock total \label{figben} \\
-Il est important de noter que la contrainte qui varie sur ce graphe est la quantité minimum de produits à fabriquer.}
+\caption{Bénéfice réalisé en fonction du stock total \label{figben}}
 \end{figure}
+
+Il est important de noter que la contrainte qui varie sur ce graphe est la quantité minimum de produits à fabriquer.
 
 \begin{figure}[H]
 \centering
@@ -359,7 +360,7 @@ $q_A$ & $q_B$ & $q_C$ & $q_D$ & $q_E$ & $q_F$ \\
 \end{tabular} 
 \end{center}
 
-Le second choix a l'inconvénient d'avoir un ratio bénéfice/stockage moins élevé mais présente l'avantage d'être mieux en accord avec le nombre de produits à produire vis-à-vis des autres responsables. Cependant, nous choisirons ce second choix afin de ne pas trop pénaliser les critères des autres responsables.
+Le second choix a l'inconvénient d'avoir un ratio bénéfice/stockage moins élevé mais présente l'avantage d'être mieux en accord avec le nombre de produits à produire vis-à-vis des autres responsables. Nous choisirons donc ce second choix afin de ne pas trop pénaliser les critères des autres responsables.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% RESP COMMERCIAL %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Responsable commercial}
@@ -375,7 +376,7 @@ Nous souhaitons donc minimiser l'écart entre $q_A$ et $q_E$, tel que :
 
 \[ \abs{q_A - q_E} \leq \epsilon \] 
 
-Pour un écart nul entre les quantités de A et E produites, nous avons les quantités hebdomadaires suivante :
+Pour un écart nul entre les quantités de A et E produites, nous avons les quantités hebdomadaires suivantes :
 \begin{center}
 \begin{tabular}{cccccc}
 \hline
@@ -398,7 +399,7 @@ Le responsable du personnel souhaite utiliser le moins possible la machine 4.\\
 
 La première solution qui nous vient à l’esprit serait de minimiser la fonction suivante : \[f(Q) = 2q_A + 10q_B + 5q_C + 4q_D + 13q_E + 7q_F\]
 
-Cette fonction traduit l'utilisation de la machine 4 en fonction des produits fabriqués. Cependant, les résultats que nous obtenons en ne prenant en compte que cette équation ne sont pas satisfaisants, car nous nous retrouvions à produire 5 unités de A et B et 0 des autres produits. Ce résultat est mathématiquement juste au vu des contraintes que nous avions précisées, mais ne suffit pas pour assurer une rentabilité à l’entreprise. Pour trouver une solution plus juste, nous allons prendre en compte une certaine quantité d’unités minimales à produire. \\
+Cette fonction traduit l'utilisation de la machine 4 en fonction des produits fabriqués. Cependant, les résultats que nous obtenons en ne prenant en compte que cette équation ne sont pas satisfaisants, car nous nous retrouvions à produire 5 unités de A et B et 0 des autres produits. Ce résultat est mathématiquement juste au vu des contraintes que nous avions précisées, mais ne suffit pas pour assurer une rentabilité à l’entreprise. Pour trouver une solution plus juste, nous allons prendre en compte une certaine quantité d’unités minimale à produire. \\
 
 \bf{Contraintes supplémentaires :}
 
@@ -459,13 +460,13 @@ Nous calculons dans un premier temps le résultat espéré pour chaque responsab
 \begin{table}[H]
 \begin{center}
 \begin{tabular}{c|ccccc}
- & \shortstack{Comptable \\ \scriptsize{(€)}} & \shortstack{Resp. Atelier \\ \scriptsize (Unités)} & \shortstack{Resp Stock \\ \scriptsize (Stock total)} & \shortstack{Resp Commercial \\ \scriptsize ($\abs{q_A - q_E}$)} &   \shortstack{Resp Personnel \\ \scriptsize (min)} \\ 
+ & \shortstack{Comptable \\ \scriptsize{(€)}} & \shortstack{Resp. Atelier \\ \scriptsize (Unités)} & \shortstack{Resp. Stock \\ \scriptsize (Stock total)} & \shortstack{Resp. Commercial \\ \scriptsize ($\abs{q_A - q_E}$)} &   \shortstack{Resp. Personnel \\ \scriptsize (min)} \\ 
 \hline 
 Comptable &  \cellcolor{blue!10} 10 408,00 & 356,67 & 1 689,68 & 235,00 & 3 965,69 \\ 
 Resp. Atelier & 9 593,16 & \cellcolor{blue!10}378,63 & 1 833,57 & 176,71 & 3 801,89 \\ 
-Resp Stock & 9 785,99 & 366,00 & \cellcolor{blue!10}$1\:717,00$ & 183,50 & 3 847,69 \\ 
-Resp Commercial & 7 466,03 & 374,89 & 1 829,79 & \cellcolor{blue!10} 0,00 & 2 678,88 \\ 
-Resp Personnel & 2 499,60 & 345,00 & 1 795,00 & 270,00 & \cellcolor{blue!10}$940,00$ \\ 
+Resp. Stock & 9 785,99 & 366,00 & \cellcolor{blue!10}$1\:717,00$ & 183,50 & 3 847,69 \\ 
+Resp. Commercial & 7 466,03 & 374,89 & 1 829,79 & \cellcolor{blue!10} 0,00 & 2 678,88 \\ 
+Resp. Personnel & 2 499,60 & 345,00 & 1 795,00 & 270,00 & \cellcolor{blue!10}$940,00$ \\ 
 \end{tabular}
 \caption{Matrice des points de mire} 
 \end{center}
@@ -480,13 +481,13 @@ Nous pouvons ensuite normaliser la matrice obtenue pour ne pas tenir compte des 
 \begin{table}[H]
 \begin{center}
 \begin{tabular}{c|ccccc}
- & Comptable \scriptsize{(\%)} & Resp. Atelier \scriptsize{(\%)} & Resp Stock \scriptsize{(\%)} & Resp Commercial \scriptsize{(\%)} &  Resp Personnel \scriptsize{(\%)}\\ 
+ & Comptable \scriptsize{(\%)} & Resp. Atelier \scriptsize{(\%)} & Resp. Stock \scriptsize{(\%)} & Resp. Commercial \scriptsize{(\%)} &  Resp. Personnel \scriptsize{(\%)}\\ 
 \hline 
 Comptable &  \cellcolor{black!5} 100,00 & 94,20 & 98,41 & 12,96 & -221,88 \\ 
 Resp. Atelier & 95,47 & \cellcolor{black!5}100,00 & 93,21 & 34,55 & -204,46 \\ 
-Resp Stock & 97,39 & 96,66 & \cellcolor{black!5}100,00 & 32,04 & -209,33 \\ 
-Resp Commercial & 74,30 & 99,01 & 93,43 & \cellcolor{black!5}100,00 & -84,99 \\ 
-Resp Personnel & 24,88 & 91,12 & 95,46 & 0,00 & \cellcolor{black!5}100,00 \\ 
+Resp. Stock & 97,39 & 96,66 & \cellcolor{black!5}100,00 & 32,04 & -209,33 \\ 
+Resp. Commercial & 74,30 & 99,01 & 93,43 & \cellcolor{black!5}100,00 & -84,99 \\ 
+Resp. Personnel & 24,88 & 91,12 & 95,46 & 0,00 & \cellcolor{black!5}100,00 \\ 
 \end{tabular}
 \caption{Matrice des points de mire normalisée} 
 \end{center}
@@ -519,7 +520,7 @@ Cette répartition permet d'obtenir les résultats suivants sur les objectifs de
 \begin{table}[H]
 \begin{center}
 \begin{tabular}{c|ccccc}
-\shortstack{Comptable \\ \scriptsize{(€)}} & \shortstack{Resp. Atelier \\ \scriptsize (Unités)} & \shortstack{Resp Stock \\ \scriptsize (Stock total)} & \shortstack{Resp Commercial \\ \scriptsize ($\abs{q_A - q_E}$)} &   \shortstack{Resp Personnel \\ \scriptsize (min)} \\ 
+\shortstack{Comptable \\ \scriptsize{(€)}} & \shortstack{Resp. Atelier \\ \scriptsize (Unités)} & \shortstack{Resp. Stock \\ \scriptsize (Stock total)} & \shortstack{Resp. Commercial \\ \scriptsize ($\abs{q_A - q_E}$)} &   \shortstack{Resp.  Personnel \\ \scriptsize (min)} \\ 
 \hline 
 9 593,46 & 378,64 & 1 833,64 & 176.72 & 3 802,01 \\ 
 \end{tabular}
@@ -531,7 +532,7 @@ En normalisant les résultats, nous obtenons les pourcentages de satisfaction su
 \begin{table}[H]
 \begin{center}
 \begin{tabular}{c|ccccc}
-\shortstack{Comptable \\ \scriptsize{(\%)}} & \shortstack{Resp. Atelier \\ \scriptsize (\%)} & \shortstack{Resp Stock \\ \scriptsize (\%)} & \shortstack{Resp Commercial \\ \scriptsize (\%)} &   \shortstack{Resp Personnel \\ \scriptsize (\%)} \\ 
+\shortstack{Comptable \\ \scriptsize{(\%)}} & \shortstack{Resp. Atelier \\ \scriptsize (\%)} & \shortstack{Resp.  Stock \\ \scriptsize (\%)} & \shortstack{Resp.  Commercial \\ \scriptsize (\%)} &   \shortstack{Resp.  Personnel \\ \scriptsize (\%)} \\ 
 \hline 
 95,48 & 100,00 & 93,21 & 34,55 & -204,47 \\
 \end{tabular}
@@ -563,7 +564,7 @@ Cette répartition permet d'obtenir les résultats suivants sur les objectifs de
 \begin{table}[H]
 \begin{center}
 \begin{tabular}{c|ccccc}
-\shortstack{Comptable \\ \scriptsize{(€)}} & \shortstack{Resp. Atelier \\ \scriptsize (Unités)} & \shortstack{Resp Stock \\ \scriptsize (Stock total)} & \shortstack{Resp Commercial \\ \scriptsize ($\abs{q_A - q_E}$)} &   \shortstack{Resp Personnel \\ \scriptsize (min)} \\ 
+\shortstack{Comptable \\ \scriptsize{(€)}} & \shortstack{Resp. Atelier \\ \scriptsize (Unités)} & \shortstack{Resp.  Stock \\ \scriptsize (Stock total)} & \shortstack{Resp.  Commercial \\ \scriptsize ($\abs{q_A - q_E}$)} &   \shortstack{Resp.  Personnel \\ \scriptsize (min)} \\ 
 \hline 
 8 116,43 & 376,05 & 1 831,05 & 54,00 & 3 022,22 \\ 
 \end{tabular}
@@ -575,7 +576,7 @@ En normalisant les résultats, nous obtenons les pourcentages de satisfaction su
 \begin{table}[H]
 \begin{center}
 \begin{tabular}{c|ccccc}
-\shortstack{Comptable \\ \scriptsize{(\%)}} & \shortstack{Resp. Atelier \\ \scriptsize (\%)} & \shortstack{Resp Stock \\ \scriptsize (\%)} & \shortstack{Resp Commercial \\ \scriptsize (\%)} &   \shortstack{Resp Personnel \\ \scriptsize (\%)} \\ 
+\shortstack{Comptable \\ \scriptsize{(\%)}} & \shortstack{Resp. Atelier \\ \scriptsize (\%)} & \shortstack{Resp.  Stock \\ \scriptsize (\%)} & \shortstack{Resp.  Commercial \\ \scriptsize (\%)} &   \shortstack{Resp.  Personnel \\ \scriptsize (\%)} \\ 
 \hline 
 80,78 & 99,32 & 93,36 & 80,00 & -121,51 \\
 \end{tabular}
@@ -603,7 +604,7 @@ Cette répartition permet d'obtenir les résultats suivants sur les objectifs de
 \begin{table}[H]
 \begin{center}
 \begin{tabular}{c|ccccc}
-\shortstack{Comptable \\ \scriptsize{(€)}} & \shortstack{Resp. Atelier \\ \scriptsize (Unités)} & \shortstack{Resp Stock \\ \scriptsize (Stock total)} & \shortstack{Resp Commercial \\ \scriptsize ($\abs{q_A - q_E}$)} &   \shortstack{Resp Personnel \\ \scriptsize (min)} \\ 
+\shortstack{Comptable \\ \scriptsize{(€)}} & \shortstack{Resp. Atelier \\ \scriptsize (Unités)} & \shortstack{Resp.  Stock \\ \scriptsize (Stock total)} & \shortstack{Resp.  Commercial \\ \scriptsize ($\abs{q_A - q_E}$)} &   \shortstack{Resp.  Personnel \\ \scriptsize (min)} \\ 
 \hline 
 7 291,96 & 342,27 & 1 601.08 & 4,43 & 2 500,00 \\ 
 \end{tabular}
@@ -615,7 +616,7 @@ En normalisant les résultats, nous obtenons les pourcentages de satisfaction su
 \begin{table}[H]
 \begin{center}
 \begin{tabular}{c|ccccc}
-\shortstack{Comptable \\ \scriptsize{(\%)}} & \shortstack{Resp. Atelier \\ \scriptsize (\%)} & \shortstack{Resp Stock \\ \scriptsize (\%)} & \shortstack{Resp Commercial \\ \scriptsize (\%)} &   \shortstack{Resp Personnel \\ \scriptsize (\%)} \\ 
+\shortstack{Comptable \\ \scriptsize{(\%)}} & \shortstack{Resp. Atelier \\ \scriptsize (\%)} & \shortstack{Resp.  Stock \\ \scriptsize (\%)} & \shortstack{Resp.  Commercial \\ \scriptsize (\%)} &   \shortstack{Resp.  Personnel \\ \scriptsize (\%)} \\ 
 \hline 
 72,57 & 90,40 & 93,25 & 98,36 & -65,96 \\
 \end{tabular}
@@ -645,7 +646,7 @@ $q_A$ & $q_B$ & $q_C$ & $q_D$ & $q_E$ & $q_F$ \\
 \begin{table}[H]
 \begin{center}
 \begin{tabular}{c|ccccc}
-\shortstack{Comptable \\ \scriptsize{(€)}} & \shortstack{Resp. Atelier \\ \scriptsize (Unités)} & \shortstack{Resp Stock \\ \scriptsize (Stock total)} & \shortstack{Resp Commercial \\ \scriptsize ($\abs{q_A - q_E}$)} &   \shortstack{Resp Personnel \\ \scriptsize (min)} \\ 
+\shortstack{Comptable \\ \scriptsize{(€)}} & \shortstack{Resp. Atelier \\ \scriptsize (Unités)} & \shortstack{Resp.  Stock \\ \scriptsize (Stock total)} & \shortstack{Resp.  Commercial \\ \scriptsize ($\abs{q_A - q_E}$)} &   \shortstack{Resp.  Personnel \\ \scriptsize (min)} \\ 
 \hline 
 7 291,96 & 342,27 & 1 601.08 & 4,43 & 2 500,00 \\ 
 \end{tabular}
@@ -657,13 +658,13 @@ Ainsi, le responsable d'entreprise peut opter pour une solution intermédiaire q
 \begin{table}[H]
 \begin{center}
 \begin{tabular}{c|ccccc}
- & Comptable & Resp. Atelier & Resp Stock & Resp Commercial &  Resp Personnel\\ 
+ & Comptable & Resp. Atelier & Resp.  Stock & Resp.  Commercial &  Resp.  Personnel\\ 
 \hline 
 Comptable &  \cellcolor{black!5} 100,00 & 94,20 & 98,41 & 12,96 & -221,88 \\ 
 Resp. Atelier & 95,47 & \cellcolor{black!5}100,00 & 93,21 & 34,55 & -204,46 \\ 
-Resp Stock & 97,39 & 96,66 & \cellcolor{black!5}100,00 & 32,04 & -209,33 \\ 
-Resp Commercial & 74,30 & 99,01 & 93,43 & \cellcolor{black!5}100,00 & -84,99 \\ 
-Resp Personnel & 24,88 & 91,12 & 95,46 & 0,00 & \cellcolor{black!5}100,00 \\ 
+Resp.  Stock & 97,39 & 96,66 & \cellcolor{black!5}100,00 & 32,04 & -209,33 \\ 
+Resp.  Commercial & 74,30 & 99,01 & 93,43 & \cellcolor{black!5}100,00 & -84,99 \\ 
+Resp.  Personnel & 24,88 & 91,12 & 95,46 & 0,00 & \cellcolor{black!5}100,00 \\ 
 Resp. Entreprise & 72,57 & 90,40 & 93,25 & 98,36 & -65,96 \\
 \end{tabular}
 \end{center}
