@@ -1,5 +1,6 @@
 %%% Preamble
 \documentclass[paper=a4, fontsize=11pt]{report}
+
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{fourier}
@@ -76,7 +77,6 @@
 \includepdf[pages={1}]{title.pdf}
 
 \tableofcontents
-\listoftodos
 
 \newpage
 
@@ -307,6 +307,7 @@ Pour l'étude, un nombre minimal de produits à fabriquer a été fixé. Nous av
 
 Il est important de noter que les courbes suivantes ont été obtenues en faisant varier uniquement la contrainte sur le nombre de produits minimum à fabriquer.\\
 
+\newpage
 \bf{Résultat :}
 
 \begin{figure}[H]
@@ -345,14 +346,14 @@ $q_A$ & $q_B$ & $q_C$ & $q_D$ & $q_E$ & $q_F$ \\
 \end{tabular} 
 \end{center}
 
-Un autre point peut également être considéré comme une répartition optimale des stocks. Il s'agit du dernier point où nous constatons une variation brutale du coefficient directeur des courbes (qui correspond à 1 717 unités de stocks, 366 produits, ou encore un bénéfice de 9 786 €). À cet endroit, nous obtenons la répartition des quantités fabriquées suivante :
+Un autre point peut également être considéré comme une répartition optimale des stocks. Il s'agit du dernier point où nous constatons une variation brutale du coefficient directeur des courbes (qui correspond à 1 717 unités de stocks, 366 produits, ou encore un bénéfice de 9 786 €). De plus, il s'agit du dernier point où l'augmentation du stock permet également d'augmenter le bénéfice réalisé. Lorsque ce point est dépassé, afin d'optimiser au mieux le stock, des produits moins rentables sont alors privilégiés, réduisant ainsi le bénéfice total. Ainsi, à cet endroit, nous obtenons la répartition des quantités fabriquées suivante :
 
 \begin{center}
 \begin{tabular}{cccccc}
 \hline 
 $q_A$ & $q_B$ & $q_C$ & $q_D$ & $q_E$ & $q_F$ \\ 
 \hline 
-5.00 & 53,23 & 0,00 & 0,00 & 172,50 & 119,27 \\ 
+5.00 & 59,90 & 0,00 & 0,00 & 188,50 & 112,60 \\ 
 \hline 
 \end{tabular} 
 \end{center}
@@ -426,8 +427,6 @@ $q_A$ & $q_B$ & $q_C$ & $q_D$ & $q_E$ & $q_F$ \\
 
 Nous pouvons résumer les différents résultats sélectionnés pour chaque responsable dans le tableau ci-dessous. À chaque responsable est également associé un point de mire, qui correspond à son objectif, réalisé grâce à la répartition des produits fabriqués qui a été retenue.
 
-
-\Todo{problème sur la ligne du responsable des stocks !}
 \begin{center}
 \begin{tabular}{l|cccccc|cc}
 \hline
@@ -435,7 +434,7 @@ Responsables & $q_A$ & $q_B$ & $q_C$ & $q_D$ & $q_E$ & $q_F$ & $\sum q_i \quad$ 
 \hline
 Comptable & 5,00 & 18,00 & 0,00 & 0,00 & 240,00 & 93,67 & 356,67 & $10 \:408\,$€\\
 Responsable d'atelier & 5,00 & 54,64 & 38,85 & 0,00 & 181,71 & 98,43 & 378,63 & 378,63 produits\\
-Responsable des stocks & 5,00 & 53,23 & 0,00 & 0,00 & 172,50 & 119,27 & $1\:717\,$ unités de stocks\\
+Responsable des stocks & 5.00 & 59,90 & 0,00 & 0,00 & 188,50 & 112,60 & 366,00 & $1\:717\,$ unités de stocks\\
 Responsable commercial & 119,08 & 6,91 & 42,58 & 0,00 & 119,08 & 87,24 & 374,89 & $\abs{q_A - q_E}=0$\\
 Responsable personnel & 270,00 & 5,00 & 70,00 & 0,00 & 0,00 & 0,00 & 345,00 & $940\,$ min \\
 
@@ -453,87 +452,225 @@ Responsable personnel & 270,00 & 5,00 & 70,00 & 0,00 & 0,00 & 0,00 & 345,00 & $9
 Nous allons essayer dans cette deuxième partie de satisfaire au mieux les différents responsables. Pour résoudre ce problème, nous allons d'abord établir la matrice avec les points de mire des différents responsables. Ensuite, comme les objectifs des différents responsables sont exprimés dans des unités différentes, il nous faudra normaliser la matrice de gain.
 
 \section{Obtention des points de mire}
-Nous calculons dans un premier temps le résultat espéré pour chaque responsable, en fonction du point de mire des autres responsables. Nous obtenons alors le tableau suivant : 
 
-\Todo{Modifier ligne resp stock pour faire avec 1714 : deuxieme sol}
-\Todo{Entêtes sur 2 lignes}
-
+Nous calculons dans un premier temps le résultat espéré pour chaque responsable, en fonction du point de mire des autres responsables. Par exemple, la solution optimale retenue pour le responsable comptabilité nous permet d'obtenir 10 408 € de bénéfice. Ce résultat peut ensuite être comparé avec les bénéfices obtenus avec les solutions optimales retenues pour les autres responsables. Dans le cas du responsable atelier, sa solution de production permet d'obtenir un bénéfice de 9 593,16 €. Ainsi, ces calculs d'objectifs sont réalisés pour chaque responsable, ce qui nous permet d'obtenir le tableau suivant :
 
 \begin{table}[H]
 \begin{center}
 \begin{tabular}{c|ccccc}
  & \shortstack{Comptable \\ \scriptsize{(€)}} & \shortstack{Resp. Atelier \\ \scriptsize (Unités)} & \shortstack{Resp Stock \\ \scriptsize (Stock total)} & \shortstack{Resp Commercial \\ \scriptsize ($\abs{q_A - q_E}$)} &   \shortstack{Resp Personnel \\ \scriptsize (min)} \\ 
 \hline 
-Comptable &  \cellcolor{blue!10} 10 408 & 356,67 & 1689,68 & 235 & 3965,69 \\ 
-Resp. Atelier & 9 593,16 & \cellcolor{blue!10}378,63 & 1833,57 & 176,71 & 3801,89 \\ 
-Resp Stock & 6 479,20 & 234,00 & \cellcolor{blue!10}$1\:003$ & 51.5 & 1967 \\ 
-Resp Commercial & 7 466,03 & 374.89 & 1829.79 & \cellcolor{blue!10} 0 & 2678.88 \\ 
-Resp Personnel & 2 499,60 & 345 & 1795 & 270 & \cellcolor{blue!10}$940\,$ \\ 
+Comptable &  \cellcolor{blue!10} 10 408,00 & 356,67 & 1 689,68 & 235,00 & 3 965,69 \\ 
+Resp. Atelier & 9 593,16 & \cellcolor{blue!10}378,63 & 1 833,57 & 176,71 & 3 801,89 \\ 
+Resp Stock & 9 785,99 & 366,00 & \cellcolor{blue!10}$1\:717,00$ & 183,50 & 3 847,69 \\ 
+Resp Commercial & 7 466,03 & 374,89 & 1 829,79 & \cellcolor{blue!10} 0,00 & 2 678,88 \\ 
+Resp Personnel & 2 499,60 & 345,00 & 1 795,00 & 270,00 & \cellcolor{blue!10}$940,00$ \\ 
 \end{tabular}
 \caption{Matrice des points de mire} 
 \end{center}
 \end{table}
 
-Cette matrice ne permet pas de faire ressortir des résultats qui paraissent satisfaisants au premier abord. Nous pouvons seulement constater qu'il va falloir trouver un compromis que se rapproche au plus du point de mire de chaque responsable.
+Cependant, cette matrice ne permet pas de faire ressortir des résultats qui paraissent satisfaisants au premier abord. Nous pouvons seulement constater qu'il va falloir trouver un compromis que se rapproche au plus du point de mire de chaque responsable.
 
 \section{Normalisation de la matrice}
 
-Nous pouvons ensuite normaliser la matrice obtenu pour ne pas tenir compte des unités et uniformiser les résultats. Ainsi, nous mesurons le rapport entre le point de mire de chaque responsable et le résultat qu'il obtient avec la solution d'un autre responsable. Nous obtenons alors les résultats suivants : 
-
-\Todo{Remplir tableau + commentaires}
+Nous pouvons ensuite normaliser la matrice obtenue pour ne pas tenir compte des unités et uniformiser les résultats. Pour ce faire, nous mesurons le rapport entre le point de mire de chaque responsable et le résultat qu'il obtient avec la solution d'un autre responsable. Nous obtenons alors les résultats suivants : 
 
 \begin{table}[H]
 \begin{center}
 \begin{tabular}{c|ccccc}
- & Comptable & Resp. Atelier & Resp Stock & Resp Commercial &  Resp Personnel\\ 
+ & Comptable \scriptsize{(\%)} & Resp. Atelier \scriptsize{(\%)} & Resp Stock \scriptsize{(\%)} & Resp Commercial \scriptsize{(\%)} &  Resp Personnel \scriptsize{(\%)}\\ 
 \hline 
-Comptable &  \cellcolor{black!5} 100 \% &  &  &  &  \\ 
-Resp. Atelier &  & \cellcolor{black!5}100 \% &  &  &  \\ 
-Resp Stock &  &  & \cellcolor{black!5}100 \% &  & \\ 
-Resp Commercial &  &  &  & \cellcolor{black!5}100 \% &  \\ 
-Resp Personnel &  &  &  &  & \cellcolor{black!5}100 \% \\ 
+Comptable &  \cellcolor{black!5} 100,00 & 94,20 & 98,41 & 12,96 & -221,88 \\ 
+Resp. Atelier & 95,47 & \cellcolor{black!5}100,00 & 93,21 & 34,55 & -204,46 \\ 
+Resp Stock & 97,39 & 96,66 & \cellcolor{black!5}100,00 & 32,04 & -209,33 \\ 
+Resp Commercial & 74,30 & 99,01 & 93,43 & \cellcolor{black!5}100,00 & -84,99 \\ 
+Resp Personnel & 24,88 & 91,12 & 95,46 & 0,00 & \cellcolor{black!5}100,00 \\ 
 \end{tabular}
 \caption{Matrice des points de mire normalisée} 
 \end{center}
 \end{table}
 
+Comme nous pouvons le voir, aucune solution n'est satisfaisante de façon générale. Il nous faut donc dégager une solution de production qui présentera des taux de satisfaction raisonnables pour chaque responsable. Par exemple, la solution du responsable comptabilité satisfait fortement le responsable atelier et stock mais ne correspond pas aux critères du responsable commercial et du personnel.
+
 \section{Dégradation des fonctions objectifs}
 
 Comme aucun résultat ne semble être meilleur que les autres, nous allons dégrader successivement les différentes fonctions objectif des responsables, afin de trouver une solution de compromis pouvant satisfaire le responsable d'entreprise.\\
 
-\Todo{Remplir partie et expliquer la dégradation}
+Pour ce faire, nous allons procéder de manière itérative, afin d'intégrer au fur et à mesure les objectifs de tous les responsables. La fonction objectif utilisée pour la résolution du problème sera la maximisation de la quantité de produits fabriqués, tout en tenant compte à la fois des contraintes globales définies précédemment, ainsi que des contraintes permettant de dégrader le modèle. 
 
+\subsection{Satisfaction du responsable comptabilité}
 
-\begin{itemize}
-\item Dégradation de la fct objectif pour le resp d'atelier : au moins 90 de son point de mire, soit 340 produits
-\item Pour le stock : 1 003 selon le resp stock, au max. On autorise jusqu'à 30\% au-dessus, soit 1 309 unité de stock
-\item Pour le commercial : Ecart entre $q_A$ et $q_E$ doit être inférieur à 50\% des 119 produits A et 119 produits, soit 60
+Afin de prendre en compte la satisfaction du responsable comptabilité, nous ajoutons une contrainte permettant de déterminer un bénéfice minimum à réaliser. Le point de mire du comptable étant de 10 408 €, nous allons dans un premier temps autoriser un bénéfice inférieur de 30 \%, obtenant ainsi une borne minimale de 7 285,6 €. La répartition des produits à fabriquer est alors la suivante :
 
-\item Pour le responsable du personnel : 910 m selon le resp. on autorise jusqu'à 80\% au-dessus, soit 1 692
-\end{itemize}
+\begin{center}
+\begin{tabular}{cccccc}
+\hline
+$q_A$ & $q_B$ & $q_C$ & $q_D$ & $q_E$ & $q_F$ \\
+\hline
+5,00 & 54,64 & 38,86 & 0,00 & 181,72 & 98,43 \\
+\hline
+\end{tabular}
+\end{center}
 
+Cette répartition permet d'obtenir les résultats suivants sur les objectifs de chaque responsable : 
 
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{c|ccccc}
+\shortstack{Comptable \\ \scriptsize{(€)}} & \shortstack{Resp. Atelier \\ \scriptsize (Unités)} & \shortstack{Resp Stock \\ \scriptsize (Stock total)} & \shortstack{Resp Commercial \\ \scriptsize ($\abs{q_A - q_E}$)} &   \shortstack{Resp Personnel \\ \scriptsize (min)} \\ 
+\hline 
+9 593,46 & 378,64 & 1 833,64 & 176.72 & 3 802,01 \\ 
+\end{tabular}
+\end{center}
+\end{table}
 
-\section{Résultats : Matrice de gain}
+En normalisant les résultats, nous obtenons les pourcentages de satisfaction suivants : 
 
-\Todo{Vérifier la matrice de gain}
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{c|ccccc}
+\shortstack{Comptable \\ \scriptsize{(\%)}} & \shortstack{Resp. Atelier \\ \scriptsize (\%)} & \shortstack{Resp Stock \\ \scriptsize (\%)} & \shortstack{Resp Commercial \\ \scriptsize (\%)} &   \shortstack{Resp Personnel \\ \scriptsize (\%)} \\ 
+\hline 
+95,48 & 100,00 & 93,21 & 34,55 & -204,47 \\
+\end{tabular}
+\end{center}
+\end{table}
+
+Comme nous pouvons le voir, le responsable commercial ainsi que le responsable du personnel ont un pourcentage de satisfaction faible avec cette solution. Seule la contrainte sur le bénéfice ayant été intégrée afin de dégrader le modèle, ce résultat est tout à fait normal.
+
+\subsection{Satisfaction du responsable atelier}
+
+La modélisation utilisée afin de trouver une solution pouvant satisfaire le responsable d'entreprise ayant une fonction objectif maximisant le nombre de produits fabriqués, la prise en compte de la satisfaction du responsable atelier ne nécessite pas l'ajout de contrainte supplémentaire.
+
+\subsection{Satisfaction du responsable commercial}
+
+Afin de prendre en compte les critères du responsable commercial, deux nouvelles contraintes sont ajoutées au modèle, afin de limiter l'écart autorisé entre le nombre de produits A et E créés. Parmi les solutions de chaque responsable, le plus grand écart remarqué entre les productions de A et B est de 270 unités, tandis que le plus petit écart est de 0. Nous allons donc autoriser au maximum un écart de 20 \% de l'écart maximum, soit 54 unités. La répartition des produits à fabriquer est alors la suivante : 
+
+\begin{center}
+\begin{tabular}{cccccc}
+\hline
+$q_A$ & $q_B$ & $q_C$ & $q_D$ & $q_E$ & $q_F$ \\
+\hline
+84,22 & 21,50 & 41,45 & 0,00 & 138,22 & 90,66 \\
+\hline
+\end{tabular}
+\end{center}
+
+Cette répartition permet d'obtenir les résultats suivants sur les objectifs de chaque responsable : 
+
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{c|ccccc}
+\shortstack{Comptable \\ \scriptsize{(€)}} & \shortstack{Resp. Atelier \\ \scriptsize (Unités)} & \shortstack{Resp Stock \\ \scriptsize (Stock total)} & \shortstack{Resp Commercial \\ \scriptsize ($\abs{q_A - q_E}$)} &   \shortstack{Resp Personnel \\ \scriptsize (min)} \\ 
+\hline 
+8 116,43 & 376,05 & 1 831,05 & 54,00 & 3 022,22 \\ 
+\end{tabular}
+\end{center}
+\end{table}
+
+En normalisant les résultats, nous obtenons les pourcentages de satisfaction suivants : 
+
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{c|ccccc}
+\shortstack{Comptable \\ \scriptsize{(\%)}} & \shortstack{Resp. Atelier \\ \scriptsize (\%)} & \shortstack{Resp Stock \\ \scriptsize (\%)} & \shortstack{Resp Commercial \\ \scriptsize (\%)} &   \shortstack{Resp Personnel \\ \scriptsize (\%)} \\ 
+\hline 
+80,78 & 99,32 & 93,36 & 80,00 & -121,51 \\
+\end{tabular}
+\end{center}
+\end{table}
+
+Nous pouvons remarquer qu'il s'agit maintenant du responsable du personnel qui présente la moins grande satisfaction.
+
+\subsection{Satisfaction du responsable du personnel}
+
+Nous ajoutons maintenant une nouvelle contrainte sur le temps maximum d'utilisation de la machine 4, afin de prendre en compte les critères du responsable du personnel. Le point de mire de sa solution optimale est de 940 minutes. Cependant, au vue des contraintes ajoutées précédemment, une utilisation maximale de 940 minutes de la machine 4 est impossible, le modèle ne pouvant être résolu. Il faut alors monter à un maximum de 2 500 minutes d'utilisation afin d'avoir une solution réalisable. La répartition des produits à fabriquer est alors la suivante :
+
+\begin{center}
+\begin{tabular}{cccccc}
+\hline
+$q_A$ & $q_B$ & $q_C$ & $q_D$ & $q_E$ & $q_F$ \\
+\hline
+115,72 & 5,00 & 0,00 & 0,00 & 111,29 & 110,25 \\
+\hline
+\end{tabular}
+\end{center}
+
+Cette répartition permet d'obtenir les résultats suivants sur les objectifs de chaque responsable : 
+
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{c|ccccc}
+\shortstack{Comptable \\ \scriptsize{(€)}} & \shortstack{Resp. Atelier \\ \scriptsize (Unités)} & \shortstack{Resp Stock \\ \scriptsize (Stock total)} & \shortstack{Resp Commercial \\ \scriptsize ($\abs{q_A - q_E}$)} &   \shortstack{Resp Personnel \\ \scriptsize (min)} \\ 
+\hline 
+7 291,96 & 342,27 & 1 601.08 & 4,43 & 2 500,00 \\ 
+\end{tabular}
+\end{center}
+\end{table}
+
+En normalisant les résultats, nous obtenons les pourcentages de satisfaction suivants : 
+
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{c|ccccc}
+\shortstack{Comptable \\ \scriptsize{(\%)}} & \shortstack{Resp. Atelier \\ \scriptsize (\%)} & \shortstack{Resp Stock \\ \scriptsize (\%)} & \shortstack{Resp Commercial \\ \scriptsize (\%)} &   \shortstack{Resp Personnel \\ \scriptsize (\%)} \\ 
+\hline 
+72,57 & 90,40 & 93,25 & 98,36 & -65,96 \\
+\end{tabular}
+\end{center}
+\end{table}
+
+Nous pouvons remarquer la prise en compte des critères du responsable du personnel a un impact important sur ceux du responsable comptabilité.
+
+\subsection{Satisfaction du responsable de stock}
+
+Enfin, nous pouvons prendre en compte les critères du responsable de stock. Cependant, les contraintes ajoutées pour le responsable du personnel influencent les résultats dans la même direction qu'une contrainte sur un stock maximal. De fait, si nous ajoutons une contrainte au modèle afin de restreindre à 1 717 unités le stock total, le résultat proposé correspondra à la répartition de produits présentée dans le paragraphe précédent.
+
+\section{Solution retenue}
+
+Suite aux différentes dégradations du modèle, une solution susceptible de satisfaire le responsable d'entreprise a été dégagée et correspond aux productions et objectifs ci-dessous :
+
+\begin{center}
+\begin{tabular}{cccccc}
+\hline
+$q_A$ & $q_B$ & $q_C$ & $q_D$ & $q_E$ & $q_F$ \\
+\hline
+115,72 & 5,00 & 0,00 & 0,00 & 111,29 & 110,25 \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{c|ccccc}
+\shortstack{Comptable \\ \scriptsize{(€)}} & \shortstack{Resp. Atelier \\ \scriptsize (Unités)} & \shortstack{Resp Stock \\ \scriptsize (Stock total)} & \shortstack{Resp Commercial \\ \scriptsize ($\abs{q_A - q_E}$)} &   \shortstack{Resp Personnel \\ \scriptsize (min)} \\ 
+\hline 
+7 291,96 & 342,27 & 1 601.08 & 4,43 & 2 500,00 \\ 
+\end{tabular}
+\end{center}
+\end{table}
+
+Ainsi, le responsable d'entreprise peut opter pour une solution intermédiaire qui ne pénalisera pas trop les critères d'un responsable. Le récapitulatif des solutions en terme de pourcentage de satisfaction est le suivant :
 
 \begin{table}[H]
 \begin{center}
 \begin{tabular}{c|ccccc}
  & Comptable & Resp. Atelier & Resp Stock & Resp Commercial &  Resp Personnel\\ 
 \hline 
-Comptable & 96.4082 & 94.2001 & 31.5374 & 12.9630 & 67.8118 \\ 
-Resp. Atelier & 95.4733 & 100.0000 & 17.1914 & 34.5519 & 69.5544 \\ 
-Resp Stock & 64.4825 & 61.8018 & 99.9501 & 80.9259 & 89.0745\\ 
-Resp Commercial & 74.3037 & 99.0122 & 17.5683 & 100.0000 & 81.5013 \\ 
-Resp Personnel & 24.8765 & 91.1180 & 21.0369 & 0 & 100.0000 \\ 
+Comptable &  \cellcolor{black!5} 100,00 & 94,20 & 98,41 & 12,96 & -221,88 \\ 
+Resp. Atelier & 95,47 & \cellcolor{black!5}100,00 & 93,21 & 34,55 & -204,46 \\ 
+Resp Stock & 97,39 & 96,66 & \cellcolor{black!5}100,00 & 32,04 & -209,33 \\ 
+Resp Commercial & 74,30 & 99,01 & 93,43 & \cellcolor{black!5}100,00 & -84,99 \\ 
+Resp Personnel & 24,88 & 91,12 & 95,46 & 0,00 & \cellcolor{black!5}100,00 \\ 
+Resp. Entreprise & 72,57 & 90,40 & 93,25 & 98,36 & -65,96 \\
 \end{tabular}
-\caption{Matrice de gain calculée} 
 \end{center}
 \end{table}
 
-\Todo{Expliquer le choix des poids de pondération}
+Grâce à cette recherche d'une solution intermédiaire, nous pouvons dégager une pondération de l'importance de chaque responsable. Le responsable du stock ainsi que le responsable du personnel ayant un impact similaire sur les résultats comme nous venons de le voir, et étant pris en compte en dernier, nous pouvons leur donner une pondération de 1.\\
+
+Considérés en aval, les critères du responsable commercial peuvent prendre une pondération de 2. Selon le même principe, le responsable comptabilité peut obtenir une pondération de 4, car considéré avant le responsable commercial.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
